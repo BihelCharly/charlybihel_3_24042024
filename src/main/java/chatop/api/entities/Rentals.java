@@ -19,7 +19,6 @@ public class Rentals {
     private int owner_id;
     private Date created_at;
     private Date updated_at;
-    @Column(unique = true)
     private int ownerd_id;
 
     public Rentals() {

@@ -19,7 +19,7 @@ public class UsersController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path="/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void register(@RequestBody Users users) {
-    this.usersService.register(users);
+        this.usersService.register(users);
     }
 
     @GetMapping(path = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
