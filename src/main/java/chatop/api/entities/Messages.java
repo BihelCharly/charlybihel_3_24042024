@@ -9,6 +9,8 @@ import java.util.Date;
 public class Messages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(unique = true)
     private int rental_id;
     @Column(unique = true)
     private int user_id;
@@ -19,12 +21,21 @@ public class Messages {
     public Messages() {
     }
 
-    public Messages(int rental_id, int user_id, String message, Date created_at, Date updated_at) {
+    public Messages(int id, int rental_id, int user_id, String message, Date created_at, Date updated_at) {
+        this.id = id;
         this.rental_id = rental_id;
         this.user_id = user_id;
         this.message = message;
         this.created_at = created_at;
         this.updated_at = updated_at;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRental_id() {

@@ -3,9 +3,6 @@ package chatop.api.service;
 import chatop.api.entities.Users;
 import chatop.api.repository.IUsersRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 @Service
 public class UsersService {
