@@ -16,9 +16,11 @@ public class MessagesController {
         this.messagesService = messagesService;
     }
 
+    // je sais qu'il faut aussi que je check l'user_id mais actuellement ça ne fonctionne tout de meme pas
+    // pourtant je ne vois pas ce qu'il manque
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createMessages(@RequestBody Messages messages) {
-        this.messagesService.createMessages(messages);
+    public Messages createMessages(@RequestBody Messages messages) {
+        return this.messagesService.createMessages(messages);
     }
 }

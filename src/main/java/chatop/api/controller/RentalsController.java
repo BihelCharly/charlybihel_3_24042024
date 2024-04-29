@@ -18,10 +18,12 @@ public class RentalsController {
         this.rentalsService = rentalsService;
     }
 
+    // je n'arrive pas à faire passer le champ picture pour le fichier image
+    // quand je supprime le champ picture ça fonctionne ; Mais j'ai une erreur quand je change l'id dans postman à 2 ou 3 ...
     @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(path = "/1", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void createRentals(Rentals rentals){
-        this.rentalsService.createRentals(rentals);
+    @PostMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void createRentals( @PathVariable int id, Rentals rentals){
+        this.rentalsService.createRentals(id, rentals);
 
     }
 
@@ -33,5 +35,11 @@ public class RentalsController {
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rentals getOneRentals(@PathVariable int id) {
         return this.rentalsService.getOneRentals(id);
+    }
+
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Rentals updateRentals(@PathVariable int id , Rentals rentals) {
+        return this.rentalsService.updateRentals(id, rentals);
     }
 }

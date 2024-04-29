@@ -4,6 +4,8 @@ import chatop.api.entities.Users;
 import chatop.api.repository.IUsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UsersService {
 
@@ -16,7 +18,9 @@ public class UsersService {
     public void register(Users users) {
         Users usersExist = this.iUsersRepository.findByEmail(users.getEmail());
         if(usersExist== null) {
-        this.iUsersRepository.save(users);}
+            users.setCreated_at(new Date());
+            this.iUsersRepository.save(users);
+        }
     }
 
     public Users search(Users users) {
