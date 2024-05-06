@@ -1,5 +1,13 @@
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_25042024/src/main/java/chatop/api/service/UsersService.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_25042024/src/main/java/chatop/api/repository/IUsersRepository.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_25042024/src/main/java/chatop/api/controller/UsersController.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_25042024/src/main/java/chatop/api/entities/Users.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_25042024/src/main/java/chatop/api/ApiBackendApplication.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/entities/Rentals.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/controller/MessagesController.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/service/MessagesService.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/controller/RentalsController.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/entities/Messages.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/entities/Users.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/ApiBackendApplication.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/repository/IMessagesRepository.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/repository/IRentalsRepository.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/service/RentalsService.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/repository/IUsersRepository.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/service/UsersService.java
+/home/ack/Documents/Linux/GNOME/charlybihel_3_24042024/src/main/java/chatop/api/controller/UsersController.java
