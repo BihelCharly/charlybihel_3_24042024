@@ -1,13 +1,16 @@
 package chatop.api.controller;
 
-import chatop.api.entities.Rentals;
+import chatop.api.models.entities.Rentals;
 import chatop.api.service.RentalsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name="RENTALS", description = "Operations for Rentals")
 @RestController
 @RequestMapping(path = "/rentals")
 public class RentalsController {
@@ -18,27 +21,28 @@ public class RentalsController {
         this.rentalsService = rentalsService;
     }
 
-    // je n'arrive pas à faire passer le champ picture pour le fichier image
-    // quand je supprime le champ picture ça fonctionne ; Mais j'ai une erreur quand je change l'id dans postman à 2 ou 3 ...
+    @Operation(summary = "create", description = "Create one new rental")
     @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void createRentals( @PathVariable int id, Rentals rentals){
-        this.rentalsService.createRentals(id, rentals);
-
+    @PostMapping(path = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void createRentals(@ModelAttribute("rentals") Rentals rentals){
+        this.rentalsService.createRentals(rentals);
     }
 
+    @Operation(summary ="get all", description = "Get all rentals from RENTALS")
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Rentals> getAllRentals() {
         return this.rentalsService.getAllRentals();
     }
 
+    @Operation(summary = "get one", description = "Get one rental by ID from RENTALS")
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rentals getOneRentals(@PathVariable int id) {
         return this.rentalsService.getOneRentals(id);
     }
 
     //@ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "update", description = "Update one rental by ID from RENTALS")
+    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Rentals updateRentals(@PathVariable int id , Rentals rentals) {
         return this.rentalsService.updateRentals(id, rentals);
     }

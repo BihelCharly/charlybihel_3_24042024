@@ -1,6 +1,6 @@
 package chatop.api.service;
 
-import chatop.api.entities.Rentals;
+import chatop.api.models.entities.Rentals;
 import chatop.api.repository.IRentalsRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +16,7 @@ public class RentalsService {
         this.iRentalsRepository = iRentalsRepository;
     }
 
-    public void createRentals(int id, Rentals rentals) {
-        rentals.setId(id);
+    public void createRentals(Rentals rentals) {
         this.iRentalsRepository.save(rentals);
     }
 

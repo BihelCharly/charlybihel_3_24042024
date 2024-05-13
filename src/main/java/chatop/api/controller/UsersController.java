@@ -1,13 +1,15 @@
 package chatop.api.controller;
 
-import chatop.api.entities.Users;
+import chatop.api.models.entities.Users;
+import chatop.api.models.requests.auth.RegisterRequest;
 import chatop.api.service.UsersService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-
+@Tag(name="USERS", description = "Operations for Users")
 @RestController
 @RequestMapping(path = "/auth")
 public class UsersController {
@@ -18,12 +20,14 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(path="/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void register(@RequestBody Users users) {
-        this.usersService.register(users);
-    }
+    //@Operation(summary = "create", description = "Create a new user")
+    //@ResponseStatus(value = HttpStatus.CREATED)
+    //@PostMapping(path="/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    //public void register(@RequestBody RegisterRequest registerRequest) {
+    //    this.usersService.register(registerRequest);
+    //}
 
+    @Operation(summary = "get one", description = "Get one user by ID")
     @GetMapping(path = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Users search(Users users) {
         return this.usersService.search(users);

@@ -1,4 +1,4 @@
-package chatop.api.entities;
+package chatop.api.models.entities;
 
 
 import jakarta.persistence.*;
@@ -15,7 +15,7 @@ public class Rentals {
     private float surface;
     private float price;
     private byte[] picture;
-    private  String description;
+    private String description;
     private int owner_id;
     private Date created_at;
     private Date updated_at;
@@ -23,6 +23,7 @@ public class Rentals {
 
     public Rentals() {
     }
+
 
     public Rentals(int id, String name, float surface, float price, byte[] picture, String description, int owner_id, Date created_at, Date updated_at, int ownerd_id) {
         this.id = id;
@@ -45,20 +46,20 @@ public class Rentals {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public float getSurface() {
         return surface;
     }
 
     public void setSurface(float surface) {
         this.surface = surface;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getPrice() {

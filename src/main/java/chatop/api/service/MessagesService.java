@@ -1,7 +1,7 @@
 package chatop.api.service;
 
-import chatop.api.entities.Messages;
-import chatop.api.entities.Rentals;
+import chatop.api.models.entities.Messages;
+import chatop.api.models.entities.Rentals;
 import chatop.api.repository.IMessagesRepository;
 import chatop.api.repository.IRentalsRepository;
 import org.springframework.stereotype.Service;

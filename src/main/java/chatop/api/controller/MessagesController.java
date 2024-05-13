@@ -1,11 +1,14 @@
 package chatop.api.controller;
 
-import chatop.api.entities.Messages;
+import chatop.api.models.entities.Messages;
 import chatop.api.service.MessagesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name="MESSAGES", description = "Operations for Messages")
 @RestController
 @RequestMapping(path = "/messages")
 public class MessagesController {
@@ -15,9 +18,7 @@ public class MessagesController {
     public MessagesController(MessagesService messagesService) {
         this.messagesService = messagesService;
     }
-
-    // je sais qu'il faut aussi que je check l'user_id mais actuellement ça ne fonctionne tout de meme pas
-    // pourtant je ne vois pas ce qu'il manque
+    @Operation(summary = "message", description = "Add a new message")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Messages createMessages(@RequestBody Messages messages) {
