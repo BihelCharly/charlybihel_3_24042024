@@ -1,14 +1,22 @@
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/entities/Messages.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/ApiBackendApplication.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/service/UsersService.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/entities/Rentals.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/repository/IRentalsRepository.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/repository/IUsersRepository.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/controller/MessagesController.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/service/MessagesService.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/entities/Users.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/service/RentalsService.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/repository/IMessagesRepository.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/controller/UsersController.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/config/OpenApiConfig.java
-/home/kosmos/Documents/DEV WEB/OpenClassrooms/Formation Fullstack/charlybihel_3_24042024/src/main/java/chatop/api/controller/RentalsController.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/repository/IMessagesRepository.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/service/MessagesService.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/mappers/RentalsDTOMapper.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/requests/rentals/UpdateRentalRequest.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/requests/auth/RegisterRequest.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/dto/RentalsDTO.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/entities/Rentals.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/requests/rentals/CreateRentalDTO.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/ApiBackendApplication.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/entities/Users.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/requests/auth/LoginRequest.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/service/RentalsService.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/controller/MessagesController.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/repository/IUsersRepository.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/service/UsersService.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/controller/RentalsController.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/config/OpenApiConfig.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/dto/UsersDTO.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/repository/IRentalsRepository.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/entities/Messages.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/models/requests/message/MessageRequest.java
+/home/ack/Documents/Linux/charlybihel_3_24042024/src/main/java/chatop/api/controller/UsersController.java

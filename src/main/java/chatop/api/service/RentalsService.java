@@ -1,13 +1,14 @@
 package chatop.api.service;
 
-import chatop.api.dto.RentalsDTO;
+import chatop.api.dto.RentalsDTO1;
+import chatop.api.dto.RentalsDTO2;
 import chatop.api.mappers.RentalsDTOMapper;
 import chatop.api.models.entities.Rentals;
 import chatop.api.repository.IRentalsRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -16,6 +17,9 @@ public class RentalsService {
 
     private final RentalsDTOMapper rentalsDTOMapper;
     private final IRentalsRepository iRentalsRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public RentalsService(RentalsDTOMapper rentalsDTOMapper, IRentalsRepository iRentalsRepository) {
         this.rentalsDTOMapper = rentalsDTOMapper;
@@ -26,26 +30,20 @@ public class RentalsService {
         this.iRentalsRepository.save(rentals);
     }
 
-    public Stream<RentalsDTO> getAllRentals() {
+    public Stream<RentalsDTO1> getAllRentals() {
         return this.iRentalsRepository.findAll().stream().map(rentalsDTOMapper);
     }
 
-    public Rentals getOneRentals(int id) {
-        Optional<Rentals> optionalRentals = this.iRentalsRepository.findById(id);
-        return optionalRentals.orElse(null);
+    public RentalsDTO2 convertEntityToDto(Rentals rentals) {
+        return modelMapper.map(rentals, RentalsDTO2.class);
     }
 
-    public Rentals updateRentals(int id, Rentals rentals) {
-        Rentals rentalsInDataBase = this.getOneRentals(id);
-        if(rentalsInDataBase.getId() == rentals.getId()) {
-            rentalsInDataBase.setName(rentals.getName());
-            rentalsInDataBase.setSurface(rentals.getSurface());
-            rentalsInDataBase.setPrice(rentals.getPrice());
-            rentalsInDataBase.setDescription(rentals.getDescription());
-            rentals.setUpdated_at(new Date());
-            rentalsInDataBase.setUpdated_at(rentals.getUpdated_at());
-            this.iRentalsRepository.save(rentalsInDataBase);
+    public RentalsDTO2 getOneRentals(int id) {
+        Optional<Rentals> optionalRentals = this.iRentalsRepository.findById(id);
+        if (optionalRentals.isPresent()) {
+            return convertEntityToDto(optionalRentals.orElse(null));
         }
-        return rentalsInDataBase;
+        return null;
     }
+
 }
