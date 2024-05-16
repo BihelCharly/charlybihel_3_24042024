@@ -1,5 +1,6 @@
 package chatop.api.controller;
 
+import chatop.api.dto.RentalsDTO;
 import chatop.api.models.entities.Rentals;
 import chatop.api.service.RentalsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Tag(name="RENTALS", description = "Operations for Rentals")
 @RestController
@@ -30,7 +32,7 @@ public class RentalsController {
 
     @Operation(summary ="get all", description = "Get all rentals from RENTALS")
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Rentals> getAllRentals() {
+    public Stream<RentalsDTO> getAllRentals() {
         return this.rentalsService.getAllRentals();
     }
 

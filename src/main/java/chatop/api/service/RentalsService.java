@@ -1,5 +1,7 @@
 package chatop.api.service;
 
+import chatop.api.dto.RentalsDTO;
+import chatop.api.mappers.RentalsDTOMapper;
 import chatop.api.models.entities.Rentals;
 import chatop.api.repository.IRentalsRepository;
 import org.springframework.stereotype.Service;
@@ -7,12 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class RentalsService {
-    IRentalsRepository iRentalsRepository;
 
-    public RentalsService(IRentalsRepository iRentalsRepository) {
+    private final RentalsDTOMapper rentalsDTOMapper;
+    private final IRentalsRepository iRentalsRepository;
+
+    public RentalsService(RentalsDTOMapper rentalsDTOMapper, IRentalsRepository iRentalsRepository) {
+        this.rentalsDTOMapper = rentalsDTOMapper;
         this.iRentalsRepository = iRentalsRepository;
     }
 
@@ -20,8 +26,8 @@ public class RentalsService {
         this.iRentalsRepository.save(rentals);
     }
 
-    public List<Rentals> getAllRentals() {
-        return this.iRentalsRepository.findAll();
+    public Stream<RentalsDTO> getAllRentals() {
+        return this.iRentalsRepository.findAll().stream().map(rentalsDTOMapper);
     }
 
     public Rentals getOneRentals(int id) {
