@@ -15,14 +15,26 @@ import java.util.Date;
 @Entity
 @Table(name = "MESSAGES")
 public class Messages {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true)
-    private int rental_id;
-    @Column(unique = true)
-    private int user_id;
+
+    @JoinColumn(name = "rental_id")
+    // many to one ?
+    private int rentalId;
+
+    @JoinColumn(name = "user_id")
+    // many to one ?
+    private int userId;
+
+    @Column(length = 2000)
     private String message;
-    private Date created_at;
-    private Date updated_at;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
 }

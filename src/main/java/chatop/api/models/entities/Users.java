@@ -15,13 +15,22 @@ import java.util.Date;
 @Entity
 @Table(name = "USERS")
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true)
     private String email;
+
     private String name;
+
     private String password;
-    private Date created_at;
-    private Date updated_at;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
 }

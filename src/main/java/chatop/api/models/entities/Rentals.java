@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -16,16 +17,32 @@ import java.util.Date;
 @Entity
 @Table(name = "RENTALS")
 public class Rentals {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
-    private float surface;
-    private float price;
-    private byte[] picture;
+
+    @Column(precision = 10)
+    private BigDecimal surface;
+
+    @Column(precision = 10)
+    private  BigDecimal price;
+
+    private String picture;
+
+    @Column(length = 2000)
     private String description;
-    private int owner_id;
-    private Date created_at;
+
+    @Column(name = "owner_id", nullable = false)
+    // many to one ?
+    private int ownerId;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
     private Date updated_at;
-    private int ownerd_id;
+
 }

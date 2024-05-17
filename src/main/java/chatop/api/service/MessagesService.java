@@ -20,13 +20,4 @@ public class MessagesService {
         this.iRentalsRepository = iRentalsRepository;
     }
 
-
-    public Messages createMessages(Messages messages) {
-        Optional<Rentals> optionalRentals = this.iRentalsRepository.findById(messages.getRental_id());
-        if(optionalRentals.isPresent()) {
-            messages.setCreated_at(new Date());
-            this.iMessagesRepository.save(messages);
-        }
-        return messages;
-    }
 }

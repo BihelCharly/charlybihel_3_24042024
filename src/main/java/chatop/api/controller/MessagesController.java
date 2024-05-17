@@ -22,6 +22,6 @@ public class MessagesController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Messages createMessages(@RequestBody Messages messages) {
-        return this.messagesService.createMessages(messages);
+        return null;
     }
 }

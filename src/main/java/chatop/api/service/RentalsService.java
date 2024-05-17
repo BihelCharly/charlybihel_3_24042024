@@ -1,7 +1,7 @@
 package chatop.api.service;
 
-import chatop.api.dto.RentalsDTO1;
-import chatop.api.dto.RentalsDTO2;
+import chatop.api.dto.rentals.GetRentalsDTO1;
+import chatop.api.dto.rentals.GetRentalsDTO2;
 import chatop.api.mappers.RentalsDTOMapper;
 import chatop.api.models.entities.Rentals;
 import chatop.api.repository.IRentalsRepository;
@@ -30,15 +30,15 @@ public class RentalsService {
         this.iRentalsRepository.save(rentals);
     }
 
-    public Stream<RentalsDTO1> getAllRentals() {
+    public Stream<GetRentalsDTO1> getAllRentals() {
         return this.iRentalsRepository.findAll().stream().map(rentalsDTOMapper);
     }
 
-    public RentalsDTO2 convertEntityToDto(Rentals rentals) {
-        return modelMapper.map(rentals, RentalsDTO2.class);
+    public GetRentalsDTO2 convertEntityToDto(Rentals rentals) {
+        return modelMapper.map(rentals, GetRentalsDTO2.class);
     }
 
-    public RentalsDTO2 getOneRentals(int id) {
+    public GetRentalsDTO2 getOneRentals(int id) {
         Optional<Rentals> optionalRentals = this.iRentalsRepository.findById(id);
         if (optionalRentals.isPresent()) {
             return convertEntityToDto(optionalRentals.orElse(null));

@@ -1,7 +1,7 @@
 package chatop.api.controller;
 
-import chatop.api.dto.RentalsDTO1;
-import chatop.api.dto.RentalsDTO2;
+import chatop.api.dto.rentals.GetRentalsDTO1;
+import chatop.api.dto.rentals.GetRentalsDTO2;
 import chatop.api.models.entities.Rentals;
 import chatop.api.service.RentalsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,15 +36,17 @@ public class RentalsController {
     //    return this.rentalsService.getOneRentals(id);
     //}
 
+    // méthode 1 sans modelmapper
     @Operation(summary ="get all", description = "Get all rentals from RENTALS")
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Stream<RentalsDTO1> getAllRentals() {
+    public Stream<GetRentalsDTO1> getAllRentals() {
         return this.rentalsService.getAllRentals();
     }
 
+    // méthode 2 avec modelmapper
     @Operation(summary = "get one", description = "Get one rental by ID from RENTALS")
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RentalsDTO2 getOneRentals(@PathVariable int id) {
+    public GetRentalsDTO2 getOneRentals(@PathVariable int id) {
         return rentalsService.getOneRentals(id);
     }
 
