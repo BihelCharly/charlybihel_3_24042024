@@ -1,11 +1,8 @@
 package chatop.api.service;
 
-import chatop.api.models.entities.Users;
-import chatop.api.models.requests.auth.RegisterRequest;
+import chatop.api.models.entities.User;
 import chatop.api.repository.IUsersRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 public class UsersService {
@@ -24,8 +21,8 @@ public class UsersService {
     //    }
     //}
 
-    public Users search(Users users) {
-        return this.iUsersRepository.findByEmail(users.getEmail());
+    public User search(User user) {
+        return this.iUsersRepository.findByEmail(user.getEmail());
     }
 
 }

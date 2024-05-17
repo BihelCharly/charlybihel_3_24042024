@@ -1,9 +1,9 @@
 package chatop.api.service;
 
-import chatop.api.dto.rentals.GetRentalsDTO1;
-import chatop.api.dto.rentals.GetRentalsDTO2;
-import chatop.api.mappers.RentalsDTOMapper;
-import chatop.api.models.entities.Rentals;
+import chatop.api.models.requests.rentals.PutRentalDTO;
+import chatop.api.models.responses.rentals.GetRentalDTO;
+import chatop.api.mappers.RentalDTOMapper;
+import chatop.api.models.entities.Rental;
 import chatop.api.repository.IRentalsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,35 +15,51 @@ import java.util.stream.Stream;
 @Service
 public class RentalsService {
 
-    private final RentalsDTOMapper rentalsDTOMapper;
+    private final RentalDTOMapper rentalDTOMapper;
     private final IRentalsRepository iRentalsRepository;
 
     @Autowired
     ModelMapper modelMapper;
 
-    public RentalsService(RentalsDTOMapper rentalsDTOMapper, IRentalsRepository iRentalsRepository) {
-        this.rentalsDTOMapper = rentalsDTOMapper;
+    public RentalsService(RentalDTOMapper RentalDTOMapper, IRentalsRepository iRentalsRepository) {
+        this.rentalDTOMapper = RentalDTOMapper;
         this.iRentalsRepository = iRentalsRepository;
     }
 
-    public void createRentals(Rentals rentals) {
-        this.iRentalsRepository.save(rentals);
+    // TO CREATE 1 RENTAL
+    public void createOneRental(Rental rental) {
+        this.iRentalsRepository.save(rental);
     }
 
-    public Stream<GetRentalsDTO1> getAllRentals() {
-        return this.iRentalsRepository.findAll().stream().map(rentalsDTOMapper);
+    // TO GET ALL RENTALS
+    // méthode sans modelmapper
+    public Stream<GetRentalDTO> getAllRentals() {
+        return this.iRentalsRepository.findAll().stream().map(rentalDTOMapper);
     }
 
-    public GetRentalsDTO2 convertEntityToDto(Rentals rentals) {
-        return modelMapper.map(rentals, GetRentalsDTO2.class);
-    }
-
-    public GetRentalsDTO2 getOneRentals(int id) {
-        Optional<Rentals> optionalRentals = this.iRentalsRepository.findById(id);
-        if (optionalRentals.isPresent()) {
-            return convertEntityToDto(optionalRentals.orElse(null));
+    // TO GET ONE RENTAL
+    // méthode avec modelmapper
+    public GetRentalDTO getOneRental(int id) {
+        Optional<Rental> optionalRental = this.iRentalsRepository.findById(id);
+        if (optionalRental.isPresent()) {
+            return modelMapper.map(optionalRental, GetRentalDTO.class);
         }
         return null;
     }
 
+    // TO UPDATE ONE RENTAL
+    // méthode avec modelmapper
+    public PutRentalDTO updateOneRental(int id, PutRentalDTO putRentalDTO) {
+        Optional<Rental> optionalRental = this.iRentalsRepository.findById(id);
+        if (optionalRental.isPresent()) {
+            Rental existingRental = optionalRental.get();
+            existingRental.setName(putRentalDTO.getName());
+            existingRental.setSurface(putRentalDTO.getSurface());
+            existingRental.setPrice(putRentalDTO.getPrice());
+            existingRental.setDescription(putRentalDTO.getDescription());
+            Rental updatedRental = iRentalsRepository.save(existingRental);
+            return modelMapper.map(updatedRental, putRentalDTO.getClass());
+        }
+        return null;
+    }
 }

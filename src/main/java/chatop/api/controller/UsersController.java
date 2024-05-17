@@ -1,11 +1,9 @@
 package chatop.api.controller;
 
-import chatop.api.models.entities.Users;
-import chatop.api.models.requests.auth.RegisterRequest;
+import chatop.api.models.entities.User;
 import chatop.api.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +27,8 @@ public class UsersController {
 
     @Operation(summary = "get one", description = "Get one user by ID")
     @GetMapping(path = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Users search(Users users) {
-        return this.usersService.search(users);
+    public User search(User user) {
+        return this.usersService.search(user);
     }
 
 }

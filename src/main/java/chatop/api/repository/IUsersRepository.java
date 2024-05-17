@@ -1,10 +1,10 @@
 package chatop.api.repository;
 
-import chatop.api.models.entities.Users;
+import chatop.api.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IUsersRepository extends JpaRepository<Users, Integer> {
+public interface IUsersRepository extends JpaRepository<User, Integer> {
 
-    Users findByEmail(String email);
+    User findByEmail(String email);
 
 }

@@ -1,6 +1,6 @@
 package chatop.api.controller;
 
-import chatop.api.models.entities.Messages;
+import chatop.api.models.entities.Message;
 import chatop.api.service.MessagesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,7 +21,7 @@ public class MessagesController {
     @Operation(summary = "message", description = "Add a new message")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Messages createMessages(@RequestBody Messages messages) {
+    public Message createMessages(@RequestBody Message messages) {
         return null;
     }
 }
