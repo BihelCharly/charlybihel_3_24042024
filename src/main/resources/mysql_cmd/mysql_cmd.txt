@@ -1,0 +1,4 @@
+sudo systemctl enable mysqld
+sudo systemctl start mysqld
+sudo mysql -u root -p
+systemctl restart httpd.service

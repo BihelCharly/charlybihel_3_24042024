@@ -13,6 +13,7 @@
 ## Technologies and tools
 * MySql 8.0.36
 * OpenJDK 21.0.3
+* Java 17
 * Spring Boot 3.2.5 with Maven
 
 ## How to start
