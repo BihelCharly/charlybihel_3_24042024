@@ -2,6 +2,7 @@ package chatop.api.service;
 
 import chatop.api.models.entities.User;
 import chatop.api.repository.IUsersRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,8 +22,9 @@ public class UsersService {
     //    }
     //}
 
-    public User search(User user) {
-        return this.iUsersRepository.findByEmail(user.getEmail());
+    public User search(Integer id) {
+        return iUsersRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Aucun utilisateur avec l'id: " + id));
     }
 
 }

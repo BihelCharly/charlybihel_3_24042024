@@ -28,7 +28,7 @@ public class UsersController {
     @Operation(summary = "get one", description = "Get one user by ID")
     @GetMapping(path = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
     public User search(User user) {
-        return this.usersService.search(user);
+        return this.usersService.search(user.getId());
     }
 
 }
