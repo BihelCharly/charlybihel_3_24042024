@@ -3,16 +3,14 @@ package chatop.api.service;
 import chatop.api.models.entities.User;
 import chatop.api.repository.IUsersRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UsersService {
 
     IUsersRepository iUsersRepository;
-
-    public UsersService(IUsersRepository iUsersRepository) {
-        this.iUsersRepository = iUsersRepository;
-    }
 
     //public void register(RegisterRequest registerRequest) {
     //    Users usersExist = this.iUsersRepository.findByEmail(registerRequest.getEmail());
