@@ -50,6 +50,7 @@ public class RentalsService {
             newRental.setName(postRentalDTO.getName());
             newRental.setSurface(postRentalDTO.getSurface());
             newRental.setPrice(postRentalDTO.getPrice());
+            newRental.setCreatedAt(new Date());
             newRental.setPicture(storageService.uploadPicture(postRentalDTO.getPicture()));
             newRental.setDescription(postRentalDTO.getDescription());
             iRentalsRepository.save(newRental);
@@ -58,7 +59,6 @@ public class RentalsService {
             return RentalResponse.builder().message("Rental already exists with this name").build();
         }
     }
-
 
     // TO UPDATE ONE RENTAL
     public RentalResponse updateOneRental(int id, PutRentalDTO putRentalDTO) {

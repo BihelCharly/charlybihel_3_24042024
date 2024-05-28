@@ -19,7 +19,7 @@ import java.util.Objects;
 public class StorageService {
 
     // Defines the directory for image
-    private final Path imagesDirectory = Paths.get("src/main/resources/images");
+    private final Path imagesDirectory = Paths.get("src/main/resources/static/images");
 
     @Value("${app.baseUrl}")
     private String baseUrl;
@@ -30,7 +30,7 @@ public class StorageService {
             String fileName = createFileName(picture);
             Path targetLocation = imagesDirectory.resolve(fileName);
             Files.copy(picture.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return baseUrl + "/images/" + fileName;
+            return baseUrl + "/static/images/" + fileName;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
