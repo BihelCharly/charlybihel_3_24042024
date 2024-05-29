@@ -5,8 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +20,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +29,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column(name = "name")
     private String name;
 
     private String password;
@@ -35,4 +42,45 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
+    private boolean active = false;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Role role;
+
+    // implements UserDetails
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.role.getStatus()));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.active;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.active;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.active;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
+    }
 }

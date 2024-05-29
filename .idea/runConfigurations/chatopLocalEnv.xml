@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="chatopLocalEnv" type="Application" factoryName="Application">
+    <envs>
+      <env name="JDBC_DATABASE_PASSWORD" value="ACKcharly" />
+      <env name="JDBC_DATABASE_URL" value="jdbc:mysql://localhost:3306/chatop" />
+      <env name="JDBC_DATABASE_USERNAME" value="root" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="chatop.api.ApiBackendApplication" />
+    <module name="api-backend" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

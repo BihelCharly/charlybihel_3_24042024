@@ -6,19 +6,22 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UsersService {
 
     IUsersRepository iUsersRepository;
 
-    //public void register(RegisterRequest registerRequest) {
-    //    Users usersExist = this.iUsersRepository.findByEmail(registerRequest.getEmail());
-    //    if(usersExist== null) {
-    //        registerRequest.setCreated_at(new Date());
-    //        this.iUsersRepository.save(registerRequest);
-    //    }
-    //}
+    public void register(User user) {
+        Optional<User> usersExist = this.iUsersRepository.findByEmail(user.getEmail());
+        if(usersExist.isEmpty()) {
+            user.setCreatedAt(new Date());
+            this.iUsersRepository.save(user);
+        }
+    }
 
     public User search(Integer id) {
         return iUsersRepository.findById(id)
