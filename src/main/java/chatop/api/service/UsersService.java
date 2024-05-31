@@ -16,8 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersService {
 
-    private IUsersRepository iUsersRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final IUsersRepository iUsersRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void register(User user) {
         Optional<User> usersExist = this.iUsersRepository.findByEmail(user.getEmail());
@@ -31,6 +31,8 @@ public class UsersService {
             user.setPassword(encryptedPassword);
             // SET CREATED DATE
             user.setCreatedAt(new Date());
+            // TO GENERATE PUBLIC ID
+            // UUID.randomUUID();
             this.iUsersRepository.save(user);
         } else {
             throw new RuntimeException("This user already exist !");
