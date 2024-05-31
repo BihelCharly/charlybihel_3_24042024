@@ -1,9 +1,12 @@
 package chatop.api.service;
 
+import chatop.api.models.entities.Role;
 import chatop.api.models.entities.User;
+import chatop.api.models.enums.RoleType;
 import chatop.api.repository.IUsersRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,13 +16,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersService {
 
-    IUsersRepository iUsersRepository;
+    private IUsersRepository iUsersRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void register(User user) {
         Optional<User> usersExist = this.iUsersRepository.findByEmail(user.getEmail());
-        if(usersExist.isEmpty()) {
+        if (usersExist.isEmpty()) {
+            // CREATE NEW ROLE
+            Role roleUser = new Role();
+            roleUser.setStatus(RoleType.USER);
+            user.setRole(roleUser);
+            // ENCRYPT PASSWORD
+            String encryptedPassword = this.bCryptPasswordEncoder.encode(user.getPassword());
+            user.setPassword(encryptedPassword);
+            // SET CREATED DATE
             user.setCreatedAt(new Date());
             this.iUsersRepository.save(user);
+        } else {
+            throw new RuntimeException("This user already exist !");
         }
     }
 

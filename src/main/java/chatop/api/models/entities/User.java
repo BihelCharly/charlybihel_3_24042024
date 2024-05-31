@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    private boolean active = false;
+    private boolean active = true;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Role role;
