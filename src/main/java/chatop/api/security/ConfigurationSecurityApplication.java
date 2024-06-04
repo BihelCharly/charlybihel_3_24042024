@@ -35,7 +35,7 @@ public class ConfigurationSecurityApplication {
     }
 
     // TO HANDLE PASSWORD
-    @Bean
+    @Beangi
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
