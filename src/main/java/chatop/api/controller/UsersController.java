@@ -2,6 +2,7 @@ package chatop.api.controller;
 
 import chatop.api.models.entities.User;
 import chatop.api.models.requests.auth.LoginUserDTO;
+import chatop.api.security.JwtService;
 import chatop.api.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +26,7 @@ public class UsersController {
 
     private final UsersService usersService;
     private final AuthenticationManager authenticationManager;
+    private JwtService jwtService;
 
     @Operation(summary = "register", description = "Create a new user")
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -32,6 +34,17 @@ public class UsersController {
     public void register(@RequestBody User user) {
         this.usersService.register(user);
     }
+
+    //@Operation(summary = "login", description = "Login as a registered user")
+    //@PostMapping(path = "/login")
+    //public Map<String, String> login(@RequestBody LoginUserDTO loginUserDTO) {
+    //    final Authentication authenticate = authenticationManager.authenticate(
+    //            new UsernamePasswordAuthenticationToken(loginUserDTO.getEmail(), loginUserDTO.getPassword())
+    //    );
+    //    log.info("result {}", authenticate.isAuthenticated());
+    //    return null;
+    //}
+
 
     @Operation(summary = "login", description = "Login as a registered user")
     @PostMapping(path = "/login")
@@ -42,11 +55,5 @@ public class UsersController {
         log.info("result {}", authenticate.isAuthenticated());
         return null;
     }
-
-    //@Operation(summary = "get one", description = "Get one user by ID")
-    //@GetMapping(path = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
-    //public User search(User user) {
-    //    return this.usersService.search(user.getId());
-    //}
 
 }
