@@ -16,4 +16,5 @@ public class PostMessageDTO {
     private Integer userId;
 
     private Integer rentalId;
+
 }

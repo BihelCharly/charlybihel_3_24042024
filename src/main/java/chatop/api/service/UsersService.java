@@ -4,9 +4,7 @@ import chatop.api.models.entities.Role;
 import chatop.api.models.entities.User;
 import chatop.api.models.enums.RoleType;
 import chatop.api.repository.IUsersRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,8 +17,8 @@ import java.util.Optional;
 @Service
 public class UsersService implements UserDetailsService {
 
-    private IUsersRepository iUsersRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final IUsersRepository iUsersRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void register(User user) {
         Optional<User> usersExist = this.iUsersRepository.findByEmail(user.getEmail());
@@ -42,14 +40,8 @@ public class UsersService implements UserDetailsService {
         }
     }
 
-    public User search(Integer id) {
-        return iUsersRepository
-                .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Aucun utilisateur avec l'id: " + id));
-    }
-
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
         return this.iUsersRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Sorry but we didn't find any user with this email !"));

@@ -26,7 +26,7 @@ public class UsersController {
 
     private final UsersService usersService;
     private final AuthenticationManager authenticationManager;
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
     @Operation(summary = "register", description = "Create a new user")
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -45,14 +45,15 @@ public class UsersController {
     //    return null;
     //}
 
-
     @Operation(summary = "login", description = "Login as a registered user")
     @PostMapping(path = "/login")
     public Map<String, String> login(@RequestBody LoginUserDTO loginUserDTO) {
-        final Authentication authenticate = authenticationManager.authenticate(
+        final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUserDTO.getEmail(), loginUserDTO.getPassword())
         );
-        log.info("result {}", authenticate.isAuthenticated());
+        if (authentication.isAuthenticated()) {
+            return this.jwtService.generate(loginUserDTO.getEmail());
+        }
         return null;
     }
 

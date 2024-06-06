@@ -27,7 +27,6 @@ public class RentalsController {
 
     private final RentalsService rentalsService;
 
-
     // TO GET ALL RENTALS
     @Operation(summary = "get all", description = "Get all rentals from RENTALS")
     @ApiResponses(value = {
@@ -54,7 +53,6 @@ public class RentalsController {
         return this.rentalsService.getOneRental(id);
     }
 
-
     // TO CREATE ONE RENTAL
     @Operation(summary = "create", description = "Create one new rental")
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -62,7 +60,6 @@ public class RentalsController {
     public RentalResponse createOneRental(@ModelAttribute PostRentalDTO postRentalDTO) {
         return this.rentalsService.createOneRental(postRentalDTO);
     }
-
 
     // TO UPDATE ONE RENTAL
     @Operation(summary = "update one", description = "Update one rental by ID from RENTALS")
@@ -75,4 +72,5 @@ public class RentalsController {
     public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute PutRentalDTO putRentalDTO) {
         return this.rentalsService.updateOneRental(id, putRentalDTO);
     }
+
 }
