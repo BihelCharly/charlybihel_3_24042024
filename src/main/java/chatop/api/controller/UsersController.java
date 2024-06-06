@@ -1,7 +1,7 @@
 package chatop.api.controller;
 
-import chatop.api.models.entities.User;
 import chatop.api.models.requests.auth.LoginUserDTO;
+import chatop.api.models.requests.auth.RegisterUserDTO;
 import chatop.api.security.JwtService;
 import chatop.api.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,8 +31,8 @@ public class UsersController {
     @Operation(summary = "register", description = "Create a new user")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void register(@RequestBody User user) {
-        this.usersService.register(user);
+    public void register(@RequestBody RegisterUserDTO registerUserDTO) {
+        this.usersService.register(registerUserDTO);
     }
 
     //@Operation(summary = "login", description = "Login as a registered user")
