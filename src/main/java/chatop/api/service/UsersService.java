@@ -1,5 +1,6 @@
 package chatop.api.service;
 
+import chatop.api.mappers.auth.RegisterUserDTOMapper;
 import chatop.api.models.entities.Role;
 import chatop.api.models.entities.User;
 import chatop.api.models.enums.RoleType;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @Service
 public class UsersService implements UserDetailsService {
 
+    private final RegisterUserDTOMapper registerUserDTOMapper;
     private final IUsersRepository iUsersRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -27,16 +29,15 @@ public class UsersService implements UserDetailsService {
             // CREATE NEW ROLE
             Role roleUser = new Role();
             roleUser.setStatus(RoleType.USER);
-            User newUser = new User();
-            newUser.setRole(roleUser);
-            // ENCRYPT PASSWORD
             String encryptedPassword = this.bCryptPasswordEncoder.encode(registerUserDTO.getPassword());
+
+            User newUser = new User();
+
+            newUser.setRole(roleUser);
             newUser.setPassword(encryptedPassword);
-            // SET CREATED DATE
             newUser.setCreatedAt(new Date());
-            // TO GENERATE PUBLIC ID
-            // UUID.randomUUID();
             this.iUsersRepository.save(newUser);
+            // UUID.randomUUID();
         } else {
             throw new RuntimeException("This user already exist !");
         }

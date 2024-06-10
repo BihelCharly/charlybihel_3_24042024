@@ -1,4 +1,4 @@
-package chatop.api.models.requests.message;
+package chatop.api.models.requests.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostMessageDTO {
+public class CreateMessageDTO {
 
     private String message;
 

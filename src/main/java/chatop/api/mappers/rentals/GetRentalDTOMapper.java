@@ -1,4 +1,4 @@
-package chatop.api.mappers;
+package chatop.api.mappers.rentals;
 
 import chatop.api.models.responses.rentals.GetRentalDTO;
 import chatop.api.models.entities.Rental;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.function.Function;
 
 @Service
-public class RentalDTOMapper implements Function<Rental, GetRentalDTO> {
+public class GetRentalDTOMapper implements Function<Rental, GetRentalDTO> {
 
     public GetRentalDTO apply(@NotNull Rental rental) {
         return GetRentalDTO.builder()

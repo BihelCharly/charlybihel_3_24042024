@@ -1,7 +1,7 @@
 package chatop.api.controller;
 
-import chatop.api.models.requests.rentals.PostRentalDTO;
-import chatop.api.models.requests.rentals.PutRentalDTO;
+import chatop.api.models.requests.rentals.CreateRentalDTO;
+import chatop.api.models.requests.rentals.UpdateRentalDTO;
 import chatop.api.models.responses.rentals.GetRentalDTO;
 import chatop.api.models.responses.rentals.RentalResponse;
 import chatop.api.service.RentalsService;
@@ -57,8 +57,8 @@ public class RentalsController {
     @Operation(summary = "create", description = "Create one new rental")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public RentalResponse createOneRental(@ModelAttribute PostRentalDTO postRentalDTO) {
-        return this.rentalsService.createOneRental(postRentalDTO);
+    public RentalResponse createOneRental(@ModelAttribute CreateRentalDTO createRentalDTO) {
+        return this.rentalsService.createOneRental(createRentalDTO);
     }
 
     // TO UPDATE ONE RENTAL
@@ -69,8 +69,8 @@ public class RentalsController {
             @ApiResponse(responseCode = "404", description = "Not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class)))
     })
     @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute PutRentalDTO putRentalDTO) {
-        return this.rentalsService.updateOneRental(id, putRentalDTO);
+    public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute UpdateRentalDTO updateRentalDTO) {
+        return this.rentalsService.updateOneRental(id, updateRentalDTO);
     }
 
 }

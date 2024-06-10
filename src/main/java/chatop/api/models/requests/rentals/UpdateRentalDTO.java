@@ -1,5 +1,7 @@
 package chatop.api.models.requests.rentals;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,12 +10,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PutRentalDTO {
+public class UpdateRentalDTO {
 
     @NotBlank
     private String name;
@@ -26,5 +29,8 @@ public class PutRentalDTO {
 
     @NotNull
     private String description;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
 }
