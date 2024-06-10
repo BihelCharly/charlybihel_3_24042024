@@ -1,6 +1,6 @@
 package chatop.api.repository;
 
-import chatop.api.models.entities.Rental;
+import chatop.api.models.entity.Rental;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

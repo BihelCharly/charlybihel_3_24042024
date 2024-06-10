@@ -1,4 +1,4 @@
-package chatop.api.models.responses.rentals;
+package chatop.api.models.response.rentals;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

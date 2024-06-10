@@ -1,8 +1,7 @@
 package chatop.api.service;
 
-import chatop.api.mappers.auth.RegisterUserDTOMapper;
-import chatop.api.models.entities.Role;
-import chatop.api.models.entities.User;
+import chatop.api.models.entity.Role;
+import chatop.api.models.entity.User;
 import chatop.api.models.enums.RoleType;
 import chatop.api.models.requests.auth.RegisterUserDTO;
 import chatop.api.repository.IUsersRepository;
@@ -19,7 +18,6 @@ import java.util.Optional;
 @Service
 public class UsersService implements UserDetailsService {
 
-    private final RegisterUserDTOMapper registerUserDTOMapper;
     private final IUsersRepository iUsersRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 

@@ -1,4 +1,4 @@
-package chatop.api.converters.rentals;
+package chatop.api.converters.rental;
 
 import chatop.api.models.entities.Rental;
 import chatop.api.models.requests.rentals.CreateRentalDTO;

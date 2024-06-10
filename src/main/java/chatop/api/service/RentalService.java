@@ -1,12 +1,12 @@
 package chatop.api.service;
 
-import chatop.api.converters.rentals.CreateRentalDTOConverter;
-import chatop.api.mappers.rentals.UpdateRentalDTOConverter;
+import chatop.api.converter.rental.CreateRentalDTOConverter;
+import chatop.api.converter.rental.UpdateRentalDTOConverter;
 import chatop.api.models.requests.rentals.CreateRentalDTO;
 import chatop.api.models.requests.rentals.UpdateRentalDTO;
 import chatop.api.models.responses.rentals.GetRentalDTO;
-import chatop.api.mappers.rentals.GetRentalDTOMapper;
-import chatop.api.models.entities.Rental;
+import chatop.api.mapper.rental.GetRentalDTOMapper;
+import chatop.api.models.entity.Rental;
 import chatop.api.models.responses.rentals.RentalResponse;
 import chatop.api.repository.IRentalsRepository;
 import lombok.RequiredArgsConstructor;

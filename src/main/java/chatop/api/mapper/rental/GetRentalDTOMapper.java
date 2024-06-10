@@ -1,4 +1,4 @@
-package chatop.api.mappers.rentals;
+package chatop.api.mappers.rental;
 
 import chatop.api.models.responses.rentals.GetRentalDTO;
 import chatop.api.models.entities.Rental;

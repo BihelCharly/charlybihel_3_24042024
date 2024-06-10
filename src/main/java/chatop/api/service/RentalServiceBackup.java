@@ -1,7 +1,7 @@
 package chatop.api.service;
 
-import chatop.api.mappers.rentals.GetRentalDTOMapper;
-import chatop.api.models.entities.Rental;
+import chatop.api.mapper.rental.GetRentalDTOMapper;
+import chatop.api.models.entity.Rental;
 import chatop.api.models.requests.rentals.CreateRentalDTO;
 import chatop.api.models.requests.rentals.UpdateRentalDTO;
 import chatop.api.models.responses.rentals.GetRentalDTO;
