@@ -1,9 +1,9 @@
 package chatop.api.controller;
 
-import chatop.api.models.requests.auth.LoginUserDTO;
-import chatop.api.models.requests.auth.RegisterUserDTO;
+import chatop.api.models.request.auth.LoginUserDTO;
+import chatop.api.models.request.auth.RegisterUserDTO;
 import chatop.api.security.JwtService;
-import chatop.api.service.UsersService;
+import chatop.api.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -22,23 +22,23 @@ import java.util.Map;
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "/auth")
-public class UsersController {
+public class UserController {
 
-    private final UsersService usersService;
-    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     // TO REGISTER ONE NEW USER
     @Operation(summary = "register", description = "Create a new user")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void register(@RequestBody RegisterUserDTO registerUserDTO) {
-        this.usersService.register(registerUserDTO);
+        this.userService.register(registerUserDTO);
     }
 
     // TO LOGIN ONE REGISTERED USER
     @Operation(summary = "login", description = "Login as a registered user")
-    @PostMapping(path = "/login")
+    @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> login(@RequestBody LoginUserDTO loginUserDTO) {
         // TO GET EMAIL AND PASSWORD
         final Authentication authentication = authenticationManager.authenticate(
@@ -49,6 +49,7 @@ public class UsersController {
             return this.jwtService.generate(loginUserDTO.getLogin());
         }
         return null;
+
     }
 
 }

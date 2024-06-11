@@ -1,15 +1,15 @@
 package chatop.api.service;
 
-import chatop.api.repository.IMessagesRepository;
-import chatop.api.repository.IRentalsRepository;
+import chatop.api.repository.IMessageRepository;
+import chatop.api.repository.IRentalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MessagesService {
+public class MessageService {
 
-    IMessagesRepository iMessagesRepository;
-    IRentalsRepository iRentalsRepository;
+    IMessageRepository iMessageRepository;
+    IRentalRepository iRentalRepository;
 
 }

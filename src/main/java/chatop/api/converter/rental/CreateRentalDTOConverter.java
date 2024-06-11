@@ -1,7 +1,7 @@
-package chatop.api.converters.rental;
+package chatop.api.converter.rental;
 
-import chatop.api.models.entities.Rental;
-import chatop.api.models.requests.rentals.CreateRentalDTO;
+import chatop.api.models.entity.Rental;
+import chatop.api.models.request.rentals.CreateRentalDTO;
 import chatop.api.service.StorageService;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +21,7 @@ public class CreateRentalDTOConverter implements Converter<CreateRentalDTO, Rent
                 .price(createRentalDTO.getPrice())
                 .picture(storageService.uploadPicture(createRentalDTO.getPicture()))
                 .description(createRentalDTO.getDescription())
+                //.ownerdId(createRentalDTO)
                 .build();
     }
 }

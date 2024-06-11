@@ -18,7 +18,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class StorageService {
 
-    // Defines the directory for image
+    // DIRECTORY TO SAVE IMAGES
     private final Path imagesDirectory = Paths.get("src/main/resources/static/images");
 
     @Value("${app.baseUrl}")

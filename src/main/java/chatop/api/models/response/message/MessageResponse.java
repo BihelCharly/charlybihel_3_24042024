@@ -1,4 +1,4 @@
-package chatop.api.models.response.messages;
+package chatop.api.models.response.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

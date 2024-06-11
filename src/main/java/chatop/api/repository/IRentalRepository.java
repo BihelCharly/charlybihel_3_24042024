@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface IRentalsRepository extends JpaRepository<Rental, Integer> {
+public interface IRentalRepository extends JpaRepository<Rental, Integer> {
 
     Optional<Rental> findById(int rental_id);
 

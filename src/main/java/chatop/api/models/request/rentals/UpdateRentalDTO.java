@@ -1,4 +1,4 @@
-package chatop.api.models.requests.rentals;
+package chatop.api.models.request.rentals;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;

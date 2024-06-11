@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/messages")
-public class MessagesController {
+public class MessageController {
 
 }

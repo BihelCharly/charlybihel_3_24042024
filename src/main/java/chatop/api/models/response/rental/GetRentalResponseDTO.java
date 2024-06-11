@@ -1,4 +1,4 @@
-package chatop.api.models.response.rentals;
+package chatop.api.models.response.rental;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GetRentalDTO {
+public class GetRentalResponseDTO {
 
     private int id;
 
@@ -27,8 +27,8 @@ public class GetRentalDTO {
 
     private String description;
 
-    @JsonProperty(value = "owner_id")
-    private int ownerId;
+    @JsonProperty(value = "ownerd_id")
+    private int ownerdId;
 
     @JsonProperty(value = "created_at")
     private Date createdAt;

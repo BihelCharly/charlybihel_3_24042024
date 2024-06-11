@@ -1,4 +1,4 @@
-package chatop.api.models.response.rentals;
+package chatop.api.models.response.rental;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

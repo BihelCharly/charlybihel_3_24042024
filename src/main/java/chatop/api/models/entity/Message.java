@@ -1,4 +1,4 @@
-package chatop.api.models.entities;
+package chatop.api.models.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

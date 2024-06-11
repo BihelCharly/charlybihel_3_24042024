@@ -1,4 +1,4 @@
-package chatop.api.models.requests.auth;
+package chatop.api.models.request.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package chatop.api.models.entities;
+package chatop.api.models.entity;
 
 
 import jakarta.persistence.*;
@@ -35,9 +35,9 @@ public class Rental {
     @Column(length = 2000)
     private String description;
 
-    @Column(name = "owner_id")
+    @Column(name = "ownerd_id")
     // many to one ?
-    private int ownerId;
+    private int ownerdId;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)

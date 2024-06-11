@@ -4,7 +4,6 @@ package chatop.api.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,14 +15,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class ConfigurationSecurityApplication {
+
+    private final JwtFilter jwtFilter;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -38,15 +40,16 @@ public class ConfigurationSecurityApplication {
                                         .requestMatchers(POST, "/auth/register").permitAll()
                                         .requestMatchers(POST, "/rentals").permitAll()
                                         .requestMatchers(PUT, "/rentals").permitAll()
+                                        .requestMatchers(GET, "/rentals").permitAll()
                                         .anyRequest().authenticated()
-                        ).build();
+                        )
+                        .sessionManagement(
+                                httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        )
+                        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                        .build();
     }
 
-    // TO HANDLE PASSWORD
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     // TO HANDLE AUTHENTICATION
     @Bean
@@ -58,7 +61,7 @@ public class ConfigurationSecurityApplication {
     public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(this.passwordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
         return daoAuthenticationProvider;
     }
 }

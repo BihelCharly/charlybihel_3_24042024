@@ -1,4 +1,4 @@
-package chatop.api.models.entities;
+package chatop.api.models.entity;
 
 import chatop.api.models.enums.RoleType;
 import jakarta.persistence.*;

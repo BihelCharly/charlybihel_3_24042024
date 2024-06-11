@@ -1,7 +1,7 @@
-package chatop.api.converters.rental;
+package chatop.api.converter.rental;
 
-import chatop.api.models.entities.Rental;
-import chatop.api.models.requests.rentals.UpdateRentalDTO;
+import chatop.api.models.entity.Rental;
+import chatop.api.models.request.rentals.UpdateRentalDTO;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.convert.converter.Converter;

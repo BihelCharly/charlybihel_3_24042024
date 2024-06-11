@@ -1,10 +1,10 @@
 package chatop.api.controller;
 
-import chatop.api.models.requests.rentals.CreateRentalDTO;
-import chatop.api.models.requests.rentals.UpdateRentalDTO;
-import chatop.api.models.responses.rentals.GetRentalDTO;
-import chatop.api.models.responses.rentals.RentalResponse;
-import chatop.api.service.RentalsService;
+import chatop.api.models.request.rentals.CreateRentalDTO;
+import chatop.api.models.request.rentals.UpdateRentalDTO;
+import chatop.api.models.response.rental.GetRentalResponseDTO;
+import chatop.api.models.response.rental.RentalResponse;
+import chatop.api.service.RentalService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,34 +23,38 @@ import java.util.stream.Stream;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/rentals")
-public class RentalsController {
+public class RentalController {
 
-    private final RentalsService rentalsService;
+    private final RentalService rentalService;
 
     // TO GET ALL RENTALS
     @Operation(summary = "get all", description = "Get all rentals from RENTALS")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All rentals founded", content = {
-                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetRentalDTO.class)))
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetRentalResponseDTO.class)))
             }),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Not found", content = @Content)
     })
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Stream<GetRentalDTO> getAllRentals() {
-        return this.rentalsService.getAllRentals();
+    public Stream<GetRentalResponseDTO> getAllRentals() {
+
+        return this.rentalService.getAllRentals();
+
     }
 
     // TO GET ONE RENTAL
     @Operation(summary = "get one", description = "Get one rental by ID from RENTALS")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Rental founded", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = GetRentalDTO.class))}),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = GetRentalResponseDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid ID", content = @Content),
             @ApiResponse(responseCode = "404", description = "Not found", content = @Content)})
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GetRentalDTO getOneRental(@PathVariable int id) {
-        return this.rentalsService.getOneRental(id);
+    public GetRentalResponseDTO getOneRental(@PathVariable int id) {
+
+        return this.rentalService.getOneRental(id);
+
     }
 
     // TO CREATE ONE RENTAL
@@ -58,7 +62,9 @@ public class RentalsController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public RentalResponse createOneRental(@ModelAttribute CreateRentalDTO createRentalDTO) {
-        return this.rentalsService.createOneRental(createRentalDTO);
+
+        return this.rentalService.createOneRental(createRentalDTO);
+
     }
 
     // TO UPDATE ONE RENTAL
@@ -70,7 +76,9 @@ public class RentalsController {
     })
     @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute UpdateRentalDTO updateRentalDTO) {
-        return this.rentalsService.updateOneRental(id, updateRentalDTO);
+
+        return this.rentalService.updateOneRental(id, updateRentalDTO);
+
     }
 
 }
