@@ -4,7 +4,7 @@
   "name": "Rental oc",
   "endpointPrefix": "api",
   "latency": 0,
-  "port": 3001,
+  "port": 3002,
   "hostname": "",
   "routes": [
     {

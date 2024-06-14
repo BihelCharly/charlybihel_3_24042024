@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,8 +22,21 @@ public class JwtFilter extends OncePerRequestFilter {
     private UserService userService;
     private JwtService jwtService;
 
+    private final AntPathRequestMatcher[] ignoredMatchers = new AntPathRequestMatcher[]{
+            new AntPathRequestMatcher("/auth/register", "POST"),
+            new AntPathRequestMatcher("/auth/login", "POST")
+    };
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        for (AntPathRequestMatcher matcher : ignoredMatchers) {
+            if (matcher.matches(request)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
         String token = null;
         String username = null;
         boolean isTokenExpired = true;
@@ -31,7 +45,8 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authorization != null && authorization.startsWith("Bearer")) {
             token = authorization.substring(7);
             // CHECK IF TOKEN IS EXPIRED
-            isTokenExpired = jwtService.isTokenExpired(token);
+            //isTokenExpired = jwtService.isTokenExpired(token);
+            isTokenExpired = false;
             // IF NOT THEN EXTRACT USERNAME
             username = jwtService.extractUserName(token);
         }

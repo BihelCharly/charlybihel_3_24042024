@@ -30,14 +30,16 @@ public class JwtService {
 
     // TO EXTRACT USER NAME FROM CLAIM TOKEN
     public String extractUserName(String token) {
+
         return this.getClaim(token, Claims::getSubject);
+
     }
 
     // TO CHECK IF TOKEN IS EXPIRED
     public boolean isTokenExpired(String token) {
         // GET DATE FROM TOKEN
         Date expirationDate = this.getClaim(token, Claims::getExpiration);
-        // IF EXPIRATION DATE IS BEFORE TODAY DATE THEN ITS NOT EXPIRED
+        // IF EXPIRATION DATE IS BEFORE TODAY DATE THEN IT'S NOT EXPIRED
         return expirationDate.before(new Date());
     }
 

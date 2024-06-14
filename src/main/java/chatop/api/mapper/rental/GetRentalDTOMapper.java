@@ -18,7 +18,7 @@ public class GetRentalDTOMapper implements Function<Rental, GetRentalResponseDTO
                 .price(rental.getPrice())
                 .picture(rental.getPicture())
                 .description(rental.getDescription())
-                .ownerdId(rental.getOwnerdId())
+                .ownerdId(rental.getOwnerId())
                 .createdAt(rental.getCreatedAt())
                 .updatedAt(rental.getUpdatedAt())
                 .build();

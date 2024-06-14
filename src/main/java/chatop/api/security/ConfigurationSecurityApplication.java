@@ -50,7 +50,6 @@ public class ConfigurationSecurityApplication {
                         .build();
     }
 
-
     // TO HANDLE AUTHENTICATION
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

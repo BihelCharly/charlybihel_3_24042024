@@ -10,9 +10,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.UUID;
-
 @Service
 @AllArgsConstructor
 public class RegisterUserDTOConverter implements Converter<RegisterUserDTO, User> {

@@ -35,10 +35,6 @@ public class Rental {
     @Column(length = 2000)
     private String description;
 
-    @Column(name = "ownerd_id")
-    // many to one ?
-    private int ownerdId;
-
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -46,5 +42,9 @@ public class Rental {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @Column(name = "owner_id")
+    // many to one ?
+    private int ownerId;
 
 }
