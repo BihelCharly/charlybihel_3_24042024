@@ -2,6 +2,7 @@ package chatop.api.service;
 
 import chatop.api.converter.rental.CreateRentalDTOConverter;
 import chatop.api.converter.rental.UpdateRentalDTOConverter;
+import chatop.api.models.entity.User;
 import chatop.api.models.request.rentals.CreateRentalDTO;
 import chatop.api.models.request.rentals.UpdateRentalDTO;
 import chatop.api.models.response.rental.GetRentalResponseDTO;
@@ -12,6 +13,7 @@ import chatop.api.repository.IRentalRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -54,6 +56,8 @@ public class RentalService {
             // CONVERT DTO TO ENTITY WITH CONVERTER AND RETURN RESPONSE
             Rental newRental = createRentalDTOConverter.convert(createRentalDTO);
             if (newRental != null) {
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                newRental.setOwnerId(user.getId());
                 newRental.setCreatedAt(new Date());
                 iRentalRepository.save(newRental);
                 return RentalResponse.builder().message("Rental created !").build();
@@ -70,9 +74,16 @@ public class RentalService {
         Optional<Rental> optionalRental = this.iRentalRepository.findById(id);
         if (optionalRental.isPresent()) {
             Rental existingRental = optionalRental.get();
-            updateRentalDTOConverter.convert(existingRental);
-            Rental updatedRental = iRentalRepository.save(existingRental);
-            modelMapper.map(updatedRental, updateRentalDTO.getClass());
+
+            existingRental.setName(updateRentalDTO.getName());
+            existingRental.setSurface(updateRentalDTO.getSurface());
+            existingRental.setPrice(updateRentalDTO.getPrice());
+            existingRental.setDescription(updateRentalDTO.getDescription());
+            existingRental.setUpdatedAt(new Date());
+
+            Rental updatedRental = updateRentalDTOConverter.convert(updateRentalDTO);
+
+            iRentalRepository.save(existingRental);
             return RentalResponse.builder().message("Rental updated !").build();
         } else {
             return RentalResponse.builder().message("Rental not found with ID : " + id).build();

@@ -42,9 +42,8 @@ public class Rental {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-
-    @Column(name = "owner_id")
-    // many to one ?
+    
+    @JoinColumn(name = "owner_id")
     private int ownerId;
 
 }

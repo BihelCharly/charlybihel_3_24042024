@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UpdateRentalDTOConverter implements Converter<Rental, UpdateRentalDTO> {
+public class UpdateRentalDTOConverter implements Converter<UpdateRentalDTO, Rental> {
 
-    public UpdateRentalDTO convert(@NotNull Rental rental) {
-        return UpdateRentalDTO.builder()
-                .name(rental.getName())
-                .surface(rental.getSurface())
-                .price(rental.getPrice())
-                .description(rental.getDescription())
+    public Rental convert(@NotNull UpdateRentalDTO updateRentalDTO) {
+        return Rental.builder()
+                .name(updateRentalDTO.getName())
+                .surface(updateRentalDTO.getSurface())
+                .price(updateRentalDTO.getPrice())
+                .description(updateRentalDTO.getDescription())
                 .build();
     }
 }
