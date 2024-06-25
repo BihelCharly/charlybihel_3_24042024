@@ -43,7 +43,7 @@ public class Rental {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
     
-    @JoinColumn(name = "owner_id")
+    @Column(name = "owner_id")
     private int ownerId;
 
 }

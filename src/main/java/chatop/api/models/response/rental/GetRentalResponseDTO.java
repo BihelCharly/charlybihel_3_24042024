@@ -27,8 +27,8 @@ public class GetRentalResponseDTO {
 
     private String description;
 
-    @JsonProperty(value = "ownerd_id")
-    private int ownerdId;
+    @JsonProperty(value = "owner_id")
+    private int ownerId;
 
     @JsonProperty(value = "created_at")
     private Date createdAt;

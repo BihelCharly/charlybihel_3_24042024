@@ -21,7 +21,6 @@ public class CreateRentalDTOConverter implements Converter<CreateRentalDTO, Rent
                 .price(createRentalDTO.getPrice())
                 .picture(storageService.uploadPicture(createRentalDTO.getPicture()))
                 .description(createRentalDTO.getDescription())
-                //.ownerdId(createRentalDTO)
                 .build();
     }
 }

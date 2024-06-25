@@ -82,8 +82,8 @@ public class RentalService {
             existingRental.setUpdatedAt(new Date());
 
             Rental updatedRental = updateRentalDTOConverter.convert(updateRentalDTO);
-
             iRentalRepository.save(existingRental);
+
             return RentalResponse.builder().message("Rental updated !").build();
         } else {
             return RentalResponse.builder().message("Rental not found with ID : " + id).build();

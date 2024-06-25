@@ -4,8 +4,11 @@
 ## Project structure
 * `main/java/com.chatop.api.config/` : contains Swagger files
 * `main/java/com.chatop.api.controller/` : all controllers
-* `main/java/com.chatop.api.models/` : DTO and Entities
+* `main/java/com.chatop.api.converter/` : all converters
+* `main/java/com.chatop.api.mapper/` : all mappers
+* `main/java/com.chatop.api.models/` : Entities, enums and DTOs
 * `main/java/com.chatop.api.repository/` : all repositories
+* `main/java/com.ochatop.api.security/` : contains security logic = filter + jwt
 * `main/java/com.ochatop.api.service/` : all services
 * `main/ressources/` : contains Spring resources
 * `test/` : contains tests
@@ -15,6 +18,7 @@
 * OpenJDK 21.0.3
 * Java 17
 * Spring Boot 3.2.5 with Maven
+* Lombok
 
 ## How to start
 

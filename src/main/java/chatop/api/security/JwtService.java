@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 import chatop.api.models.entity.User;
 import chatop.api.service.UserService;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -20,7 +24,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private final UserService userService;
-    private static final String ENCRYPTION_KEY = "837a09cee388e716626da8c3eba4d9c18fe81ba92f84a9bef883114905ab0edc";
+    private static final String SECRET_KEY = "837a09cee388e716626da8c3eba4d9c18fe81ba92f84a9bef883114905ab0edc";
 
     public Map<String, String> generate(String email) {
         // GET EMAIL
@@ -30,9 +34,7 @@ public class JwtService {
 
     // TO EXTRACT USER NAME FROM CLAIM TOKEN
     public String extractUserName(String token) {
-
         return this.getClaim(token, Claims::getSubject);
-
     }
 
     // TO CHECK IF TOKEN IS EXPIRED
@@ -52,11 +54,11 @@ public class JwtService {
 
     // METHOD TO GET ALL CLAIMS FROM TOKEN
     private Claims getAllClaims(String token) {
-        return Jwts.parser().
-                setSigningKey(this.getKey())
+        return Jwts.parser()
+                .verifyWith(getSignInKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     // METHOD TO GENERATE JWT/BEARER TOKEN
@@ -74,19 +76,19 @@ public class JwtService {
 
         // JWT BUILDER WITH CLAIMS
         final String jwt = Jwts.builder()
-                .setIssuedAt(new Date(currentTime))
-                .setExpiration(new Date(expirationTime))
-                .setSubject(user.getEmail())
-                .setClaims(claims)
-                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .subject(user.getEmail())
+                .issuedAt(new Date(currentTime))
+                .expiration(new Date(expirationTime))
+                .claims(claims)
+                .signWith(getSignInKey())
                 .compact();
         return Map.of("jwt", jwt);
     }
 
     // TO SETUP A KEY FOR JWT/BEARER TOKEN
-    private Key getKey() {
-        final byte[] decoder = Decoders.BASE64.decode(ENCRYPTION_KEY);
-        return Keys.hmacShaKeyFor(decoder);
-    }
+    private SecretKey getSignInKey() {
+        byte[] bytes = Base64.getDecoder()
+                .decode(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+        return new SecretKeySpec(bytes, "HmacSHA256"); }
 
 }
