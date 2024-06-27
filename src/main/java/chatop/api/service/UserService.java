@@ -40,3 +40,8 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Sorry but we didn't find any user with this email !"));
     }
 }
+
+
+// POUR LE /me de la route auth
+// retourner dans un objet :
+// id, name, email, createdAt, updateAt

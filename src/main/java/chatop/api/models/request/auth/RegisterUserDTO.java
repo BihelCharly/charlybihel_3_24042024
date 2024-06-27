@@ -25,7 +25,4 @@ public class RegisterUserDTO {
     @NotBlank
     private String password;
 
-    @NotBlank
-    private Date createdAt;
-
 }

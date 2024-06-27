@@ -38,6 +38,8 @@ public class ConfigurationSecurityApplication {
                                 authorize -> authorize
                                         .requestMatchers(POST, "/auth/login").permitAll()
                                         .requestMatchers(POST, "/auth/register").permitAll()
+                                        .requestMatchers(GET,"/swagger-ui/**").permitAll()
+                                        .requestMatchers(GET,"v3/api-docs/**").permitAll()
                                         .anyRequest().authenticated()
                         )
                         .sessionManagement(

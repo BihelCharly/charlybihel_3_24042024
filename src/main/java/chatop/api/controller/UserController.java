@@ -33,7 +33,6 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void register(@RequestBody RegisterUserDTO registerUserDTO) {
-
         this.userService.register(registerUserDTO);
     }
 
