@@ -1,15 +1,14 @@
 package chatop.api.service;
 
 import chatop.api.converter.user.RegisterUserDTOConverter;
-import chatop.api.models.entity.Rental;
 import chatop.api.models.entity.User;
 import chatop.api.models.request.auth.RegisterUserDTO;
 import chatop.api.models.response.GetUserResponseDTO;
-import chatop.api.models.response.rental.GetRentalResponseDTO;
 import chatop.api.repository.IUserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -48,6 +47,10 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Sorry but we didn't find any user with this email !"));
     }
 
+    public GetUserResponseDTO getLoggedUserDetails(UserDetails userDetails) {
+        return modelMapper.map(userDetails, GetUserResponseDTO.class);
+    }
+
     public GetUserResponseDTO getOneUserById(int id) {
         Optional<User> optionalUser = this.iUserRepository.findById(id);
         if (optionalUser.isPresent()) {
@@ -56,9 +59,5 @@ public class UserService implements UserDetailsService {
             return null;
         }
     }
+
 }
-
-
-// POUR LE /me de la route auth
-// retourner dans un objet :
-// id, name, email, createdAt, updateAt
