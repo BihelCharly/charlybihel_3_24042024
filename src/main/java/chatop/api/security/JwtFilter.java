@@ -45,8 +45,8 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authorization != null && authorization.startsWith("Bearer")) {
             token = authorization.substring(7);
             // CHECK IF TOKEN IS EXPIRED
-            //isTokenExpired = jwtService.isTokenExpired(token);
-            isTokenExpired = false;
+            isTokenExpired = jwtService.isTokenExpired(token);
+            //isTokenExpired = false;
             // IF NOT THEN EXTRACT USERNAME
             username = jwtService.extractUserName(token);
         }

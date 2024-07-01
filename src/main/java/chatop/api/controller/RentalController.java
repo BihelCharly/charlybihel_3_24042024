@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +32,7 @@ public class RentalController {
             @ApiResponse(responseCode = "200", description = "All rentals founded", content = {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetRentalResponseDTO.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content)
-    })
+            @ApiResponse(responseCode = "401", description = "Unauthorized")})
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Stream<GetRentalResponseDTO> getAllRentals() {
 
@@ -46,10 +43,9 @@ public class RentalController {
     // TO GET ONE RENTAL
     @Operation(summary = "get one", description = "Get one rental by ID from RENTALS")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Rental founded", content = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = GetRentalResponseDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid ID", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content)})
+            @ApiResponse(responseCode = "401", description = "Unauthorized")})
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public GetRentalResponseDTO getOneRental(@PathVariable int id) {
 
@@ -59,7 +55,10 @@ public class RentalController {
 
     // TO CREATE ONE RENTAL
     @Operation(summary = "create", description = "Create one new rental")
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized")})
     @PostMapping(path = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public RentalResponse createOneRental(@ModelAttribute CreateRentalDTO createRentalDTO) {
 
@@ -70,10 +69,8 @@ public class RentalController {
     // TO UPDATE ONE RENTAL
     @Operation(summary = "update one", description = "Update one rental by ID from RENTALS")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Rental updated", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class)))
-    })
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class))),
+            @ApiResponse(responseCode = "401", description = "Unauthorized")})
     @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute UpdateRentalDTO updateRentalDTO) {
 

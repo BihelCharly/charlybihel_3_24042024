@@ -1,4 +1,4 @@
-package chatop.api.models.response.message;
+package chatop.api.models.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageResponse {
+public class StringResponse {
 
     private String message;
 

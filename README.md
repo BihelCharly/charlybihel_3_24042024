@@ -36,3 +36,6 @@ Documentation at https://dev.mysql.com/doc/
 ### Install Java Development Kit 21
 1. [Download JDK 21](https://www.oracle.com/java/technologies/downloads/#java21)
 2. [How to install JDK 21](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html)
+
+### Links
+1. Swagger by default : http://localhost:3001/api/swagger-ui/index.html

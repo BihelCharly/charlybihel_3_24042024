@@ -1,10 +1,15 @@
 package chatop.api.service;
 
 import chatop.api.converter.user.RegisterUserDTOConverter;
+import chatop.api.models.entity.Rental;
 import chatop.api.models.entity.User;
 import chatop.api.models.request.auth.RegisterUserDTO;
+import chatop.api.models.response.GetUserResponseDTO;
+import chatop.api.models.response.rental.GetRentalResponseDTO;
 import chatop.api.repository.IUserRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,6 +23,9 @@ public class UserService implements UserDetailsService {
 
     private final IUserRepository iUserRepository;
     private final RegisterUserDTOConverter registerUserDTOConverter;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public void register(RegisterUserDTO registerUserDTO) {
         Optional<User> usersExist = this.iUserRepository.findByEmail(registerUserDTO.getEmail());
@@ -38,6 +46,15 @@ public class UserService implements UserDetailsService {
         return this.iUserRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Sorry but we didn't find any user with this email !"));
+    }
+
+    public GetUserResponseDTO getOneUserById(int id) {
+        Optional<User> optionalUser = this.iUserRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return modelMapper.map(optionalUser, GetUserResponseDTO.class);
+        } else {
+            return null;
+        }
     }
 }
 
