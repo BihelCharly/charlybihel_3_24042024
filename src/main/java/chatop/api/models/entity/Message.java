@@ -20,16 +20,14 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name = "rental_id")
-    // many to one ?
-    private int rentalId;
-
-    @JoinColumn(name = "user_id")
-    // many to one ?
-    private int userId;
-
     @Column(length = 2000)
     private String message;
+
+    @Column(name = "user_id")
+    private int userId;
+
+    @Column(name = "rental_id")
+    private int rentalId;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)

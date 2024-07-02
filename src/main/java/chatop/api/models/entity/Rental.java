@@ -1,6 +1,5 @@
 package chatop.api.models.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -19,7 +19,7 @@ import java.util.Objects;
 public class StorageService {
 
     // DIRECTORY TO SAVE IMAGES
-    private final Path imagesDirectory = Paths.get("src/main/resources/static/images");
+    private final Path imagesDirectory = Paths.get("src/main/resources/public/");
 
     @Value("${app.baseUrl}")
     private String baseUrl;
@@ -30,7 +30,8 @@ public class StorageService {
             String fileName = createFileName(picture);
             Path targetLocation = imagesDirectory.resolve(fileName);
             Files.copy(picture.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return baseUrl + "/static/images/" + fileName;
+            return baseUrl + "/api/" + fileName;
+            //return baseUrl + "/api/" + fileName;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -51,6 +52,6 @@ public class StorageService {
             fileNameWithoutExtension = originalFileName.substring(0, dotIndex);
             fileExtension = originalFileName.substring(dotIndex);
         }
-        return RandomStringUtils.randomAlphanumeric(8) + "_" + fileNameWithoutExtension + fileExtension;
+        return fileNameWithoutExtension +  "_" + RandomStringUtils.randomAlphanumeric(10) + fileExtension;
     }
 }

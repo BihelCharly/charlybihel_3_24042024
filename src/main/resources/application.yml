@@ -5,6 +5,9 @@ server:
     servlet:
         context-path: /api
 spring:
+    web:
+        resources:
+            static-locations: classpath:/images
     application:
         name: Chatop
     database: mysql
@@ -19,8 +22,6 @@ spring:
             naming:
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         show-sql: true
-    resources:
-        static-locations: classpath:/static/images/
     servlet:
         multipart:
             max-file-size: 10MB

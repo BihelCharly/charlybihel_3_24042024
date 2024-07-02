@@ -1,5 +1,7 @@
 package chatop.api.models.request.messages;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,12 @@ public class CreateMessageDTO {
 
     private String message;
 
-    private Integer userId;
+    @NotNull
+    @JsonProperty(value = "user_id")
+    private int userId;
 
-    private Integer rentalId;
+    @NotNull
+    @JsonProperty(value = "rental_id")
+    private int rentalId;
 
 }

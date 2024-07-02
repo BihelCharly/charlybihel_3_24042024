@@ -32,6 +32,7 @@ public class UserController {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
     // TO REGISTER ONE NEW USER
     @Operation(summary = "register", description = "Create a new user")
     @ApiResponses(value = {
@@ -42,6 +43,7 @@ public class UserController {
     public void register(@RequestBody RegisterUserDTO registerUserDTO) {
         this.userService.register(registerUserDTO);
     }
+
 
     // TO LOGIN ONE REGISTERED USER
     @Operation(summary = "login", description = "Login as a registered user")
@@ -62,15 +64,20 @@ public class UserController {
         return null;
     }
 
+
     // TO GET LOGGED USER DETAILS
     @GetMapping(path = "/auth/me")
     public GetUserResponseDTO getLoggedUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
+
         return this.userService.getLoggedUserDetails(userDetails);
+
     }
+
 
     // TO GET USER DETAILS BY ID
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public GetUserResponseDTO getOneUserById(@PathVariable int id) {
+
         return this.userService.getOneUserById(id);
     }
 
