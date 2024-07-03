@@ -17,7 +17,7 @@ public class GlobalControllerExcepton {
     // ERROR 401 HANDLER
     @ExceptionHandler(InvalidCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    //@Hidden
+    @Hidden
     IResponse handleResourceNotFound(InvalidCredentialsException ex) {
         log.error("Error 401 - Unauthorized");
         return ex.getMessage() == null ? new EmptyResponse() : new MessageResponse(ex.getMessage());
@@ -26,7 +26,7 @@ public class GlobalControllerExcepton {
     // ERROR 400 HANDLER
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    //@Hidden
+    @Hidden
     IResponse handleResourceNotFound(BadRequestException ex) {
         log.error("Error 400 - Bad Request");
         return ex.getMessage() == null ? new EmptyResponse() : new MessageResponse(ex.getMessage());
