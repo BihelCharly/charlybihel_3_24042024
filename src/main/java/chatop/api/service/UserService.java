@@ -3,7 +3,7 @@ package chatop.api.service;
 import chatop.api.converter.user.RegisterUserDTOConverter;
 import chatop.api.models.entity.User;
 import chatop.api.models.request.auth.RegisterUserDTO;
-import chatop.api.models.response.GetUserResponseDTO;
+import chatop.api.models.response.user.UserResponseDTO;
 import chatop.api.repository.IUserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -47,14 +47,14 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Sorry but we didn't find any user with this email !"));
     }
 
-    public GetUserResponseDTO getLoggedUserDetails(UserDetails userDetails) {
-        return modelMapper.map(userDetails, GetUserResponseDTO.class);
+    public UserResponseDTO getLoggedUserDetails(UserDetails userDetails) {
+        return modelMapper.map(userDetails, UserResponseDTO.class);
     }
 
-    public GetUserResponseDTO getOneUserById(int id) {
+    public UserResponseDTO getOneUserById(int id) {
         Optional<User> optionalUser = this.iUserRepository.findById(id);
         if (optionalUser.isPresent()) {
-            return modelMapper.map(optionalUser, GetUserResponseDTO.class);
+            return modelMapper.map(optionalUser, UserResponseDTO.class);
         } else {
             return null;
         }

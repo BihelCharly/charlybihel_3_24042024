@@ -1,4 +1,4 @@
-package chatop.api.models.response.rental;
+package chatop.api.models.response.message;
 
 import chatop.api.models.response.IResponse;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RentalResponse implements IResponse {
+public class MessageResponse implements IResponse {
 
     private String message;
 

@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RentalResponse implements IResponse {
+public class RentalsListResponse implements IResponse {
 
-    private String message;
+    List<RentalResponseDTO> listOfRentalsDTO;
 
 }

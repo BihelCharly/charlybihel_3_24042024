@@ -2,13 +2,19 @@ package chatop.api.controller;
 
 import chatop.api.models.request.auth.LoginUserDTO;
 import chatop.api.models.request.auth.RegisterUserDTO;
-import chatop.api.models.response.GetUserResponseDTO;
+import chatop.api.models.response.EmptyResponse;
+import chatop.api.models.response.TokenResponse;
+import chatop.api.models.response.auth.AuthMeResponse;
+import chatop.api.models.response.message.MessageResponse;
+import chatop.api.models.response.user.UserResponseDTO;
 import chatop.api.security.JwtService;
 import chatop.api.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +40,16 @@ public class UserController {
 
 
     // TO REGISTER ONE NEW USER
-    @Operation(summary = "register", description = "Create a new user")
+    @Operation(summary = "register", description = "Register a new user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "400", description = "Bad request")
+            @ApiResponse(responseCode = "200", content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = TokenResponse.class)
+            )),
+            @ApiResponse(responseCode = "400", content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = EmptyResponse.class)
+            ))
     })
     @PostMapping(path = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void register(@RequestBody RegisterUserDTO registerUserDTO) {
@@ -47,11 +59,15 @@ public class UserController {
 
     // TO LOGIN ONE REGISTERED USER
     @Operation(summary = "login", description = "Login as a registered user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized")
-    })
-    @PostMapping(path = "/auth/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponse( responseCode = "200", content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = TokenResponse.class)
+    ))
+    @ApiResponse( responseCode = "401", content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = MessageResponse.class)
+    ))
+    @PostMapping(path = "/auth/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> login(@RequestBody LoginUserDTO loginUserDTO) {
         // TO GET EMAIL AND PASSWORD
         final Authentication authentication = authenticationManager.authenticate(
@@ -66,17 +82,36 @@ public class UserController {
 
 
     // TO GET LOGGED USER DETAILS
+    @Operation(summary = "me", description = "Who's logged")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @ApiResponse( responseCode = "200", content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = AuthMeResponse.class)
+    ))
+    @ApiResponse( responseCode = "401", content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = EmptyResponse.class)
+    ))
     @GetMapping(path = "/auth/me")
-    public GetUserResponseDTO getLoggedUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
+    public UserResponseDTO getLoggedUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
 
         return this.userService.getLoggedUserDetails(userDetails);
 
     }
 
-
+    @Operation(summary = "get", description = "Get user by id")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @ApiResponse( responseCode = "200", content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = UserResponseDTO.class)
+    ))
+    @ApiResponse( responseCode = "401", content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = EmptyResponse.class)
+    ))
     // TO GET USER DETAILS BY ID
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GetUserResponseDTO getOneUserById(@PathVariable int id) {
+    public UserResponseDTO getOneUserById(@PathVariable int id) {
 
         return this.userService.getOneUserById(id);
     }

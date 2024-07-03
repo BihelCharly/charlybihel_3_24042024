@@ -5,7 +5,7 @@ import chatop.api.converter.rental.UpdateRentalDTOConverter;
 import chatop.api.models.entity.User;
 import chatop.api.models.request.rentals.CreateRentalDTO;
 import chatop.api.models.request.rentals.UpdateRentalDTO;
-import chatop.api.models.response.rental.GetRentalResponseDTO;
+import chatop.api.models.response.rental.RentalResponseDTO;
 import chatop.api.mapper.rental.GetRentalDTOMapper;
 import chatop.api.models.entity.Rental;
 import chatop.api.models.response.rental.RentalResponse;
@@ -33,15 +33,15 @@ public class RentalService {
     ModelMapper modelMapper;
 
     // TO GET ALL RENTALS
-    public Stream<GetRentalResponseDTO> getAllRentals() {
+    public Stream<RentalResponseDTO> getAllRentals() {
         return this.iRentalRepository.findAll().stream().map(getRentalDTOMapper);
     }
 
     // TO GET ONE RENTAL
-    public GetRentalResponseDTO getOneRental(int id) {
+    public RentalResponseDTO getOneRental(int id) {
         Optional<Rental> optionalRental = this.iRentalRepository.findById(id);
         if (optionalRental.isPresent()) {
-            return modelMapper.map(optionalRental, GetRentalResponseDTO.class);
+            return modelMapper.map(optionalRental, RentalResponseDTO.class);
         } else {
             return null;
         }
