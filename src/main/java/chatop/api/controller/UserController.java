@@ -24,7 +24,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +55,9 @@ public class UserController {
                     schema = @Schema(implementation = EmptyResponse.class)
             ))
     })
-    @PostMapping(path = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/auth/register",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> register(@RequestBody RegisterUserDTO registerUserDTO) throws BadRequestException {
         Boolean registerService = this.userService.register(registerUserDTO);
         if (registerService) {
@@ -73,18 +77,21 @@ public class UserController {
             mediaType = "application/json",
             schema = @Schema(implementation = MessageResponse.class)
     ))
-    @PostMapping(path = "/auth/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/auth/login",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> login(@RequestBody LoginUserDTO loginUserDTO) throws InvalidCredentialsException {
-        // TO GET EMAIL AND PASSWORD
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginUserDTO.getLogin(), loginUserDTO.getPassword())
-        );
-        // IF USER EXIST -> CREATE JWT TOKEN
-        if (authentication.isAuthenticated()) {
-            return this.jwtService.generate(loginUserDTO.getLogin());
-        } else {
+        try {
+            final Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginUserDTO.getLogin(), loginUserDTO.getPassword())
+            );
+            if (authentication.isAuthenticated()) {
+                return this.jwtService.generate(loginUserDTO.getLogin());
+            }
+        } catch (AuthenticationException e) {
             throw new InvalidCredentialsException(ERROR_MESSAGE);
         }
+        throw new InvalidCredentialsException(ERROR_MESSAGE);
     }
 
 
@@ -101,13 +108,11 @@ public class UserController {
     ))
     @GetMapping(path = "/auth/me")
     public UserResponseDTO getLoggedUserDetails(@AuthenticationPrincipal UserDetails userDetails) throws InvalidCredentialsException {
-        UserResponseDTO loggedUser = this.userService.getLoggedUserDetails(userDetails);
-        if (loggedUser == null) {
-            throw new InvalidCredentialsException(ERROR_MESSAGE);
-        } else {
-            return loggedUser;
+        try {
+            return this.userService.getLoggedUserDetails(userDetails);
+        } catch (Exception e) {
+            throw new InvalidCredentialsException();
         }
-
     }
 
     // TO GET USER DETAILS BY ID
@@ -123,11 +128,16 @@ public class UserController {
     ))
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserResponseDTO getOneUserById(@PathVariable int id) throws InvalidCredentialsException {
-        UserResponseDTO getUserById = this.userService.getOneUserById(id);
-        if (getUserById == null) {
-            throw new InvalidCredentialsException(ERROR_MESSAGE);
+        try {
+            UserResponseDTO getUserById = this.userService.getOneUserById(id);
+            if(getUserById != null) {
+                return getUserById;
+            } else {
+                throw new InvalidCredentialsException();
+            }
+        } catch (Exception e) {
+            throw new InvalidCredentialsException();
         }
-        return getUserById;
     }
 
 }
