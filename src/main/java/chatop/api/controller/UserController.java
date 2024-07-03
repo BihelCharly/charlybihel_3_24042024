@@ -1,5 +1,7 @@
 package chatop.api.controller;
 
+import chatop.api.exception.BadRequestException;
+import chatop.api.exception.InvalidCredentialsException;
 import chatop.api.models.request.auth.LoginUserDTO;
 import chatop.api.models.request.auth.RegisterUserDTO;
 import chatop.api.models.response.EmptyResponse;
@@ -38,7 +40,6 @@ public class UserController {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-
     // TO REGISTER ONE NEW USER
     @Operation(summary = "register", description = "Register a new user")
     @ApiResponses(value = {
@@ -52,8 +53,12 @@ public class UserController {
             ))
     })
     @PostMapping(path = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void register(@RequestBody RegisterUserDTO registerUserDTO) {
-        this.userService.register(registerUserDTO);
+    public Map<String, String> register(@RequestBody RegisterUserDTO registerUserDTO) throws BadRequestException {
+        Boolean registerService = this.userService.register(registerUserDTO);
+        if(!registerService) {
+            throw new BadRequestException();
+        }
+        return this.jwtService.generate(registerUserDTO.getEmail());
     }
 
 
@@ -99,6 +104,7 @@ public class UserController {
 
     }
 
+    // TO GET USER DETAILS BY ID
     @Operation(summary = "get", description = "Get user by id")
     @SecurityRequirement(name = "Bearer Authentication")
     @ApiResponse( responseCode = "200", content = @Content(
@@ -109,11 +115,11 @@ public class UserController {
             mediaType = "application/json",
             schema = @Schema(implementation = EmptyResponse.class)
     ))
-    // TO GET USER DETAILS BY ID
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserResponseDTO getOneUserById(@PathVariable int id) {
 
         return this.userService.getOneUserById(id);
+
     }
 
 }

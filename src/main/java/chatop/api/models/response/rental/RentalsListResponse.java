@@ -14,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class RentalsListResponse implements IResponse {
 
-    List<RentalResponseDTO> listOfRentalsDTO;
+    List<RentalResponseDTO> Rentals;
 
 }

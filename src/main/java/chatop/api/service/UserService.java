@@ -5,15 +5,20 @@ import chatop.api.models.entity.User;
 import chatop.api.models.request.auth.RegisterUserDTO;
 import chatop.api.models.response.user.UserResponseDTO;
 import chatop.api.repository.IUserRepository;
+import chatop.api.security.JwtService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -26,19 +31,19 @@ public class UserService implements UserDetailsService {
     @Autowired
     ModelMapper modelMapper;
 
-    public void register(RegisterUserDTO registerUserDTO) {
+    public Boolean register(RegisterUserDTO registerUserDTO) {
         Optional<User> usersExist = this.iUserRepository.findByEmail(registerUserDTO.getEmail());
         if (usersExist.isEmpty()) {
             User newUser = registerUserDTOConverter.convert(registerUserDTO);
             if (newUser != null) {
                 newUser.setCreatedAt(new Date());
                 iUserRepository.save(newUser);
-                //return UserResponse.builder().message("User created !").build();
+                return true;
             }
-        } else {
-            throw new RuntimeException("This user already exist !");
         }
+        return false;
     }
+
 
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
