@@ -62,9 +62,6 @@ public class RentalService {
                 iRentalRepository.save(newRental);
                 return RentalResponse.builder().message("Rental created !").build();
             }
-            // IF RENTAL DOESN'T EXIST THEN RETURN RESPONSE
-        } else {
-            return RentalResponse.builder().message("Rental already exists with this name").build();
         }
         return null;
     }
@@ -74,19 +71,18 @@ public class RentalService {
         Optional<Rental> optionalRental = this.iRentalRepository.findById(id);
         if (optionalRental.isPresent()) {
             Rental existingRental = optionalRental.get();
-
+            // REPLACE EXISTINGS DATAS WITH DATAS FROM THE DTO
             existingRental.setName(updateRentalDTO.getName());
             existingRental.setSurface(updateRentalDTO.getSurface());
             existingRental.setPrice(updateRentalDTO.getPrice());
             existingRental.setDescription(updateRentalDTO.getDescription());
             existingRental.setUpdatedAt(new Date());
-
+            // CONVERT SAVE AND RETURN RESPONSE
             Rental updatedRental = updateRentalDTOConverter.convert(updateRentalDTO);
             iRentalRepository.save(existingRental);
-
             return RentalResponse.builder().message("Rental updated !").build();
         } else {
-            return RentalResponse.builder().message("Rental not found with ID : " + id).build();
+            return null;
         }
     }
 }

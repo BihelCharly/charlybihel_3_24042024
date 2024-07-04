@@ -5,6 +5,7 @@
 * `main/java/com.chatop.api.config/` : contains Swagger files
 * `main/java/com.chatop.api.controller/` : all controllers
 * `main/java/com.chatop.api.converter/` : all converters
+* `main/java/com.chatop.api.exception/` : all exceptions
 * `main/java/com.chatop.api.mapper/` : all mappers
 * `main/java/com.chatop.api.models/` : Entities, enums and DTOs
 * `main/java/com.chatop.api.repository/` : all repositories
@@ -37,5 +38,12 @@ Documentation at https://dev.mysql.com/doc/
 1. [Download JDK 21](https://www.oracle.com/java/technologies/downloads/#java21)
 2. [How to install JDK 21](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html)
 
-### Links
-1. Swagger by default : http://localhost:3001/api/swagger-ui/index.html
+### Setup your IDE
+1. Open the project with your IDE (project made with Intellij)
+2. Setup the local environnement and your IDE with the `application.yml` file
+4. Run the `ApiBackendApplication.java` file
+
+### Links / Utils
+1. API (by default) : http://localhost:3000/api/
+1. Swagger UI (by default) : http://localhost:3001/api/swagger-ui/index.html
+2. phpMyAdmin : http://localhost/phpmyadmin/

@@ -59,12 +59,17 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> register(@RequestBody RegisterUserDTO registerUserDTO) throws BadRequestException {
-        Boolean registerService = this.userService.register(registerUserDTO);
-        if (registerService) {
-            return this.jwtService.generate(registerUserDTO.getEmail());
-        } else {
+        try {
+            Boolean registerService = this.userService.register(registerUserDTO);
+            if (registerService) {
+                return this.jwtService.generate(registerUserDTO.getEmail());
+            } else {
+                throw new BadRequestException();
+            }
+        } catch (BadRequestException e) {
             throw new BadRequestException();
         }
+
     }
 
     // TO LOGIN ONE REGISTERED USER
@@ -87,11 +92,12 @@ public class UserController {
             );
             if (authentication.isAuthenticated()) {
                 return this.jwtService.generate(loginUserDTO.getLogin());
+            } else {
+                throw new InvalidCredentialsException(ERROR_MESSAGE);
             }
         } catch (AuthenticationException e) {
             throw new InvalidCredentialsException(ERROR_MESSAGE);
         }
-        throw new InvalidCredentialsException(ERROR_MESSAGE);
     }
 
 
@@ -130,7 +136,7 @@ public class UserController {
     public UserResponseDTO getOneUserById(@PathVariable int id) throws InvalidCredentialsException {
         try {
             UserResponseDTO getUserById = this.userService.getOneUserById(id);
-            if(getUserById != null) {
+            if (getUserById != null) {
                 return getUserById;
             } else {
                 throw new InvalidCredentialsException();

@@ -1,5 +1,6 @@
 package chatop.api.controller;
 
+import chatop.api.exception.InvalidCredentialsException;
 import chatop.api.models.request.rentals.CreateRentalDTO;
 import chatop.api.models.request.rentals.UpdateRentalDTO;
 import chatop.api.models.response.EmptyResponse;
@@ -26,59 +27,70 @@ import java.util.stream.Stream;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/rentals")
-@ApiResponse( responseCode = "401",description = "Unauthorized", content = @Content(
-        mediaType = "application/json",
-        schema = @Schema(implementation = EmptyResponse.class)
-))
 public class RentalController {
 
     private final RentalService rentalService;
 
     // TO GET ALL RENTALS
     @Operation(summary = "get all", description = "Get a list of rentals")
-    @ApiResponse(responseCode = "200", description = "All rentals founded", content = {
-            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RentalsListResponse.class)))
-    })
+    @ApiResponse(responseCode = "200", description = "OK", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RentalsListResponse.class)))})
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Stream<RentalResponseDTO> getAllRentals() {
-
         return this.rentalService.getAllRentals();
-
     }
 
     // TO GET ONE RENTAL
     @Operation(summary = "get one", description = "Get one rental by ID")
-    @ApiResponse(responseCode = "200", description = "OK", content = {
-            @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponseDTO.class))
-    })
+    @ApiResponse(responseCode = "200", description = "OK", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponseDTO.class))})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EmptyResponse.class)))
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RentalResponseDTO getOneRental(@PathVariable int id) {
-
-        return this.rentalService.getOneRental(id);
-
+    public RentalResponseDTO getOneRental(@PathVariable int id) throws InvalidCredentialsException {
+        try {
+            RentalResponseDTO rentalResponseDTO = this.rentalService.getOneRental(id);
+            if (rentalResponseDTO != null) {
+                return rentalResponseDTO;
+            } else {
+                throw new InvalidCredentialsException();
+            }
+        } catch (Exception e) {
+            throw new InvalidCredentialsException();
+        }
     }
 
     // TO CREATE ONE RENTAL
     @Operation(summary = "create one", description = "Create one new rental")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class))}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class))}), @ApiResponse(responseCode = "401", description = "Unauthorized")})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EmptyResponse.class)))
     @PostMapping(path = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public RentalResponse createOneRental(@ModelAttribute CreateRentalDTO createRentalDTO) {
-
-        return this.rentalService.createOneRental(createRentalDTO);
-
+    public RentalResponse createOneRental(@ModelAttribute CreateRentalDTO createRentalDTO) throws InvalidCredentialsException {
+        try {
+            RentalResponse rentalResponse = this.rentalService.createOneRental(createRentalDTO);
+            if (rentalResponse != null) {
+                return rentalResponse;
+            } else {
+                throw new InvalidCredentialsException();
+            }
+        } catch (Exception e) {
+            throw new InvalidCredentialsException();
+        }
     }
 
     // TO UPDATE ONE RENTAL
     @Operation(summary = "update one", description = "Update one existing rental by ID")
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RentalResponse.class)))
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EmptyResponse.class)))
     @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute UpdateRentalDTO updateRentalDTO) {
-
-        return this.rentalService.updateOneRental(id, updateRentalDTO);
-
+    public RentalResponse updateOneRental(@PathVariable int id, @ModelAttribute UpdateRentalDTO updateRentalDTO) throws InvalidCredentialsException {
+        try {
+            RentalResponse rentalResponse = this.rentalService.updateOneRental(id, updateRentalDTO);
+            if (rentalResponse != null) {
+                return rentalResponse;
+            } else {
+                throw new InvalidCredentialsException();
+            }
+        } catch (Exception e) {
+            throw new InvalidCredentialsException();
+        }
     }
 
 }

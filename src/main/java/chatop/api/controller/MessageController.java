@@ -28,34 +28,40 @@ public class MessageController {
     // TO CREATE ONE MESSAGE
     @Operation(summary = "post message", description = "Post one new message")
     @SecurityRequirement(name = "Bearer Authentication")
-    @ApiResponse( responseCode = "200",
+    @ApiResponse(responseCode = "200",
             description = "OK",
             content = @Content(
-            mediaType = "application/json",
-            schema = @Schema(implementation = MessageResponse.class)
-    ))
-    @ApiResponse( responseCode = "400",
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = MessageResponse.class)
+            ))
+    @ApiResponse(responseCode = "400",
             description = "Bad request",
             content = @Content(
-            mediaType = "application/json",
-            schema = @Schema(implementation = EmptyResponse.class )
-    ))
-    @ApiResponse( responseCode = "401",
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = EmptyResponse.class)
+            ))
+    @ApiResponse(responseCode = "401",
             description = "Unauthorized",
             content = @Content(
-            mediaType = "application/json",
-            schema = @Schema(implementation = EmptyResponse.class)
-    ))
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = EmptyResponse.class)
+            ))
     @PostMapping(
             path = "/",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public MessageResponse postOneMessage(@Valid @RequestBody CreateMessageDTO createMessageDTO) throws BadRequestException {
-        Boolean createMessage = this.messageService.postOneMessage(createMessageDTO);
-        if(createMessage) {
-            return MessageResponse.builder().message("Message send with success !").build();
+        try {
+            Boolean createMessage = this.messageService.postOneMessage(createMessageDTO);
+            if (createMessage) {
+                return MessageResponse.builder().message("Message send with success !").build();
+            } else {
+                throw new BadRequestException();
+            }
+        } catch (Exception e) {
+            throw new BadRequestException();
         }
-        throw new BadRequestException();
+
     }
 
 }

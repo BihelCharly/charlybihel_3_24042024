@@ -1,6 +1,6 @@
 package chatop.api.exception;
 
-public class InvalidCredentialsException extends RuntimeException{
+public class InvalidCredentialsException extends RuntimeException {
 
     public InvalidCredentialsException() {
         super();
