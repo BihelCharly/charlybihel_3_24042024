@@ -1,11 +1,13 @@
 package chatop.api.security;
 
+import chatop.api.exception.BadRequestException;
 import chatop.api.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
     };
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         for (AntPathRequestMatcher matcher : ignoredMatchers) {
             if (matcher.matches(request)) {
@@ -37,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        String token = null;
+        String token;
         String username = null;
         boolean isTokenExpired = true;
 
@@ -46,7 +48,6 @@ public class JwtFilter extends OncePerRequestFilter {
             token = authorization.substring(7);
             // CHECK IF TOKEN IS EXPIRED
             isTokenExpired = jwtService.isTokenExpired(token);
-            //isTokenExpired = false;
             // IF NOT THEN EXTRACT USERNAME
             username = jwtService.extractUserName(token);
         }
@@ -58,7 +59,6 @@ public class JwtFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-        // CONTINUER TO FILTER
         filterChain.doFilter(request, response);
     }
 }

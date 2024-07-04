@@ -115,10 +115,17 @@ public class UserController {
     @GetMapping(path = "/auth/me")
     public UserResponseDTO getLoggedUserDetails(@AuthenticationPrincipal UserDetails userDetails) throws InvalidCredentialsException {
         try {
-            return this.userService.getLoggedUserDetails(userDetails);
+            UserResponseDTO getLoggedUser = this.userService.getLoggedUserDetails(userDetails);
+            if (getLoggedUser != null) {
+                return getLoggedUser;
+            } else {
+                throw new InvalidCredentialsException();
+            }
         } catch (Exception e) {
             throw new InvalidCredentialsException();
         }
+
+
     }
 
     // TO GET USER DETAILS BY ID
