@@ -14,12 +14,22 @@ public class CreateRentalDTOConverter implements Converter<CreateRentalDTO, Rent
 
     private final StorageService storageService;
 
+
+
     public Rental convert(@NotNull CreateRentalDTO createRentalDTO) {
+
+        String picture;
+
+        if (createRentalDTO.getPicture().isEmpty()) {
+            picture = null;
+        } else {
+            picture = storageService.uploadPicture(createRentalDTO.getPicture());
+        }
         return Rental.builder()
                 .name(createRentalDTO.getName())
                 .surface(createRentalDTO.getSurface())
                 .price(createRentalDTO.getPrice())
-                .picture(storageService.uploadPicture(createRentalDTO.getPicture()))
+                .picture(picture)
                 .description(createRentalDTO.getDescription())
                 .build();
     }

@@ -71,7 +71,7 @@ public class RentalService {
         Optional<Rental> optionalRental = this.iRentalRepository.findById(id);
         if (optionalRental.isPresent()) {
             Rental existingRental = optionalRental.get();
-            // REPLACE EXISTINGS DATAS WITH DATAS FROM THE DTO
+            // REPLACE EXISTING DATA WITH DATA FROM THE DTO
             existingRental.setName(updateRentalDTO.getName());
             existingRental.setSurface(updateRentalDTO.getSurface());
             existingRental.setPrice(updateRentalDTO.getPrice());
